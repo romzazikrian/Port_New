@@ -515,29 +515,13 @@ export default function Hero() {
               dark:bg-[#0b1628]/80
             "
           >
-            <div
-              className="
-                relative
-                aspect-[4/5]
-                w-full
-                overflow-hidden
-                rounded-[22px]
-              "
-            >
-              {/* Profile Image */}
-
-              <Image
-                src="/images/foto/romza.jpg"
-                alt="M. Romza Zikrian"
-                fill
-                priority
-                sizes="
-                  (max-width: 1024px) 100vw,
-                  40vw
-                "
-                className="object-cover"
-              />
-
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
+  <Image
+    src="/images/foto/romza.jpg"
+    alt="M. Romza Zikrian"
+    fill
+    className="object-cover"
+  />
               {/* Image Gradient */}
 
               <div

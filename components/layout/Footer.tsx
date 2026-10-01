@@ -21,37 +21,76 @@ const socialLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#050b14] px-6 py-8">
-      <div className="mx-auto max-w-7xl">
+    <footer className="w-full border-t border-[#1e334f] bg-[#050b14] px-4 py-8 sm:px-6 sm:py-10">
+      <div className="mx-auto w-full max-w-7xl">
         <div
           className="
-            grid items-center
+            flex
+            flex-col
+            items-center
+            justify-center
             gap-6
+            text-center
+            md:grid
             md:grid-cols-3
+            md:items-center
+            md:gap-4
+            md:text-left
           "
         >
-          {/* Logo */}
-          <div className="flex justify-center md:justify-start">
+          {/* =========================
+              LOGO
+          ========================== */}
+          <div className="flex w-full justify-center md:justify-start">
             <Image
               src="/images/logo/loga.png"
               alt="M. Romza Zikrian Logo"
               width={100}
               height={100}
-              className="h-20 w-auto object-contain"
-              priority
+              className="
+                h-16
+                w-auto
+                max-w-[90px]
+                object-contain
+                sm:h-20
+                sm:max-w-[100px]
+              "
             />
           </div>
 
-          {/* Copyright */}
-          <div className="text-center">
-            <p className="text-sm leading-6 text-[#f3f6fa]">
+          {/* =========================
+              COPYRIGHT
+          ========================== */}
+          <div className="w-full">
+            <p
+              className="
+                px-2
+                text-center
+                text-xs
+                leading-6
+                text-[#f3f6fa]
+                sm:text-sm
+              "
+            >
               © 2026 M. Romza Zikrian.
               <br className="sm:hidden" /> All rights reserved.
             </p>
           </div>
 
-          {/* Social Links */}
-          <div className="flex justify-center gap-3 md:justify-end">
+          {/* =========================
+              SOCIAL LINKS
+          ========================== */}
+          <div
+            className="
+              flex
+              w-full
+              items-center
+              justify-center
+              gap-2
+              sm:gap-3
+              md:justify-end
+            "
+          >
             {socialLinks.map((social) => (
               <a
                 key={social.name}
@@ -61,16 +100,24 @@ export default function Footer() {
                 aria-label={social.name}
                 title={social.name}
                 className="
-                  flex h-12 w-12
-                  items-center justify-center
+                  flex
+                  h-10
+                  w-10
+                  shrink-0
+                  items-center
+                  justify-center
                   rounded-xl
-                  border border-[#1e334f]
+                  border
+                  border-[#1e334f]
                   text-[#f3f8fe]
-                  transition-all duration-300
+                  transition-all
+                  duration-300
                   hover:-translate-y-1
                   hover:border-[#3b82f6]
                   hover:bg-[#3b82f6]/10
                   hover:text-[#60a5fa]
+                  sm:h-11
+                  sm:w-11
                 "
               >
                 {social.icon}
