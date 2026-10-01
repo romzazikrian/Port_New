@@ -1,34 +1,12 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, GraduationCap, Laptop, Server, Smartphone } from "lucide-react";
+import { Code2, GraduationCap, Laptop } from "lucide-react";
 
 import { useLanguage } from "@/context/LanguageContext";
 
-const techGroups = [
-  {
-    titleId: "Mobile Developer",
-    titleEn: "Mobile Developer",
-    icon: Smartphone,
-    skills: ["Flutter", "Kotlin", "Java", "React Native"],
-  },
-  {
-    titleId: "Web Developer",
-    titleEn: "Web Developer",
-    icon: Code2,
-    skills: ["Next.js", "Laravel", "Vue.js", "CodeIgniter"],
-  },
-  {
-    titleId: "Lainnya",
-    titleEn: "Other",
-    icon: Server,
-    skills: ["Windows", "Linux", "IT Support"],
-  },
-];
-
 export default function About() {
   const { language } = useLanguage();
-
   const isEnglish = language === "en";
 
   return (
@@ -50,7 +28,8 @@ export default function About() {
         </motion.div>
 
         {/* About Content */}
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+        {/* About Content */}
+        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.2fr_0.8fr]">
           {/* Description */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -60,14 +39,14 @@ export default function About() {
           >
             <p className="text-lg leading-8 text-slate-700 dark:text-[#b5c2d3]">
               {isEnglish
-                ? "I am a Bachelor of Informatics graduate from Universitas Teknokrat Indonesia with experience in website development, mobile applications, and IT Support. I have the ability to build modern, responsive digital solutions that meet user needs."
-                : "Lulusan S1 Informatika Universitas Teknokrat Indonesia yang memiliki pengalaman dalam pengembangan website, aplikasi mobile, serta IT Support. Memiliki kemampuan dalam membangun solusi digital yang modern, responsif, dan sesuai dengan kebutuhan pengguna."}
+                ? "I am a Bachelor of Informatics graduate from Universitas Teknokrat Indonesia with experience in website development and IT Support. I am skilled in building modern, responsive digital solutions tailored to user needs."
+                : "Saya merupakan lulusan S1 Informatika Universitas Teknokrat Indonesia dengan pengalaman dalam pengembangan website dan IT Support. Saya memiliki kemampuan dalam membangun solusi digital yang modern, responsif, dan disesuaikan dengan kebutuhan pengguna."}
             </p>
 
             <p className="mt-6 text-lg leading-8 text-slate-700 dark:text-[#b5c2d3]">
               {isEnglish
-                ? "In addition to technical competencies in information technology, I also have skills in administration, data processing, and Microsoft Office. I am accustomed to preparing documentation and reports systematically and working effectively in teams. Supported by good communication, time management, attention to detail, and responsibility to support smooth operations and contribute to achieving company goals."
-                : "Selain memiliki kompetensi teknis di bidang teknologi informasi, saya juga memiliki keterampilan dalam administrasi, pengolahan data, dan penggunaan Microsoft Office. Terbiasa menyusun dokumentasi dan laporan secara sistematis serta mampu bekerja secara efektif dalam tim. Didukung dengan kemampuan komunikasi, manajemen waktu, ketelitian, dan tanggung jawab yang baik untuk mendukung kelancaran operasional dan pencapaian tujuan perusahaan."}
+                ? "Beyond my technical expertise in information technology, I also have skills in administration, data processing, and Microsoft Office. I am experienced in preparing documentation and reports systematically, collaborating effectively within teams, and supporting day-to-day operations. I bring strong communication, time management, attention to detail, adaptability, and a sense of responsibility to every task."
+                : "Selain memiliki kompetensi teknis di bidang teknologi informasi, saya juga memiliki keterampilan dalam administrasi, pengolahan data, dan penggunaan Microsoft Office. Terbiasa menyusun dokumentasi dan laporan secara sistematis, bekerja secara efektif dalam tim, serta mendukung kelancaran operasional. Saya mengutamakan komunikasi yang baik, manajemen waktu, ketelitian, kemampuan beradaptasi, dan tanggung jawab dalam menyelesaikan setiap tugas."}
             </p>
           </motion.div>
 
@@ -77,7 +56,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-colors dark:border-[#1e334f] dark:bg-[#0b1628]/70"
+            className="h-fit rounded-2xl border border-slate-200 bg-slate-50 p-6 transition-colors dark:border-[#1e334f] dark:bg-[#0b1628]/70"
           >
             <div className="space-y-6">
               {/* Name */}
@@ -129,12 +108,9 @@ export default function About() {
                     {isEnglish ? "Profession" : "Profesi"}
                   </p>
 
-                  <p className="mt-1 font-medium text-slate-900 dark:text-[#e8f0fa]">
-                    Full Stack Web & Mobile Developer
-                  </p>
-
-                  <p className="mt-1 text-sm text-slate-500 dark:text-[#94a3b8]">
-                    IT Support
+                  <p className="mt-1 whitespace-nowrap text-slate-900 dark:text-[#e8f0fa]">
+                    <span className="font-semibold">Web Developer</span>
+                    <span className="font-normal"> | IT Support</span>
                   </p>
                 </div>
               </div>

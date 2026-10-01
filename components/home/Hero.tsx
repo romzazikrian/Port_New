@@ -8,7 +8,6 @@ import {
   Globe2,
   MapPin,
   MonitorCog,
-  Smartphone,
   Wrench,
 } from "lucide-react";
 
@@ -18,20 +17,12 @@ import Image from "next/image";
 import {
   SiAstro,
   SiCodeigniter,
-  SiFlutter,
-  SiKotlin,
   SiLaravel,
   SiNextdotjs,
   SiVuedotjs,
 } from "react-icons/si";
 
-import { FaJava, FaReact } from "react-icons/fa";
-
 import { useLanguage } from "@/context/LanguageContext";
-
-/* =========================================================
-   WEB & MOBILE SKILLS
-========================================================= */
 
 const skills = [
   {
@@ -57,26 +48,6 @@ const skills = [
   {
     name: "CodeIgniter",
     icon: SiCodeigniter,
-  },
-  {
-    name: "Mobile Developer",
-    icon: Smartphone,
-  },
-  {
-    name: "Flutter",
-    icon: SiFlutter,
-  },
-  {
-    name: "Kotlin",
-    icon: SiKotlin,
-  },
-  {
-    name: "Java",
-    icon: FaJava,
-  },
-  {
-    name: "React Native",
-    icon: FaReact,
   },
 ];
 
@@ -179,7 +150,7 @@ export default function Hero() {
 
           lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]
           lg:px-8
-          lg:pt-28
+          lg:pt-22
         "
       >
         {/* ===================================================
@@ -240,7 +211,7 @@ export default function Hero() {
               "
             />
 
-            <span className="min-w-0">Full Stack Web & Mobile Developer</span>
+            <span className="min-w-0">Web Developer | IT Support</span>
           </div>
 
           {/* =================================================
@@ -288,7 +259,7 @@ export default function Hero() {
               dark:text-[#b9c7d9]
             "
           >
-            Full Stack Web & Mobile Developer{" "}
+            Web Developer{" "}
             <span className="text-blue-600 dark:text-[#3b82f6]">|</span> IT
             Support
           </h2>
@@ -311,8 +282,8 @@ export default function Hero() {
             "
           >
             {isEnglish
-              ? "I develop websites and mobile applications to build modern, responsive digital solutions that meet user needs. I also have experience in IT Support, administration, data processing, and documentation."
-              : "Saya mengembangkan website dan aplikasi mobile untuk membangun solusi digital yang modern, responsif, dan sesuai dengan kebutuhan pengguna. Saya juga berpengalaman dalam IT Support, administrasi, pengolahan data, dan dokumentasi."}
+              ? "I focus on developing modern, responsive websites and digital solutions tailored to user needs. I also have experience in IT Support, administration, data processing, and documentation, with a detail-oriented, adaptable, and solution-driven approach."
+              : "Berfokus pada pengembangan website dan solusi digital yang modern, responsif, serta disesuaikan dengan kebutuhan pengguna. Berpengalaman dalam IT Support, administrasi, pengolahan data, dan dokumentasi, dengan pendekatan kerja yang teliti, adaptif, dan berorientasi pada solusi."}
           </p>
 
           {/* =================================================
@@ -441,7 +412,7 @@ export default function Hero() {
                 gap-2
               "
             >
-              {["Flutter", "Next.js", "Laravel", "Vue.js", "React Native"].map(
+              {[, "Next.js", "Laravel", "Vue.js", "Astro", "CodeIgniter"].map(
                 (skill) => (
                   <span
                     key={skill}
@@ -516,12 +487,12 @@ export default function Hero() {
             "
           >
             <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
-  <Image
-    src="/images/foto/romza.jpg"
-    alt="M. Romza Zikrian"
-    fill
-    className="object-cover"
-  />
+              <Image
+                src="/images/foto/romza.jpg"
+                alt="M. Romza Zikrian"
+                fill
+                className="object-cover"
+              />
               {/* Image Gradient */}
 
               <div
