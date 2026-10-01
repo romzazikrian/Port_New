@@ -45,7 +45,7 @@ export default function Navbar() {
   const { language, toggleLanguage } = useLanguage();
 
   /* ========================================================
-     DETEKSI SECTION AKTIF
+     DETEKSI SECTION AKTIF SAAT SCROLL
   ======================================================== */
 
   useEffect(() => {
@@ -82,7 +82,7 @@ export default function Navbar() {
   }, []);
 
   /* ========================================================
-     CLOSE MENU
+     CLOSE MOBILE MENU
   ======================================================== */
 
   const closeMenu = () => {
@@ -99,7 +99,16 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full">
+    <header
+      className="
+        fixed
+        inset-x-0
+        top-0
+        z-50
+        w-full
+        max-w-full
+      "
+    >
       {/* ====================================================
           NAVBAR
       ===================================================== */}
@@ -107,6 +116,7 @@ export default function Navbar() {
       <div
         className="
           w-full
+          max-w-full
           border-b
           border-slate-200/70
           bg-white/90
@@ -122,13 +132,15 @@ export default function Navbar() {
           className="
             mx-auto
             flex
-            h-16
+            h-14
             w-full
             max-w-7xl
+            min-w-0
             items-center
             justify-between
             px-4
 
+            sm:h-16
             sm:px-6
 
             lg:h-[72px]
@@ -147,6 +159,7 @@ export default function Navbar() {
             }}
             className="
               flex
+              min-w-0
               shrink-0
               items-center
             "
@@ -154,26 +167,25 @@ export default function Navbar() {
             <Image
               src="/images/logo/loga.png"
               alt="M. Romza Zikrian Logo"
-              width={80}
-              height={80}
+              width={72}
+              height={72}
               priority
               className="
-                h-14
-                w-14
+                h-10
+                w-10
                 object-contain
 
-                sm:h-16
-                sm:w-16
+                sm:h-11
+                sm:w-11
 
-                lg:h-[72px]
-                lg:w-[72px]
+                lg:h-14
+                lg:w-14
               "
             />
           </Link>
 
           {/* =================================================
               DESKTOP NAVIGATION
-              Hanya muncul di laptop / desktop
           ================================================== */}
 
           <div className="hidden items-center gap-1 lg:flex">
@@ -195,7 +207,7 @@ export default function Navbar() {
                     transition-colors
                   "
                 >
-                  {/* Active background */}
+                  {/* Active Background */}
 
                   {isActive && (
                     <motion.span
@@ -216,7 +228,7 @@ export default function Navbar() {
                     />
                   )}
 
-                  {/* Active line */}
+                  {/* Active Line */}
 
                   {isActive && (
                     <motion.span
@@ -345,7 +357,6 @@ export default function Navbar() {
 
           {/* =================================================
               MOBILE / TABLET HAMBURGER
-              SELALU TERLIHAT DI BAWAH LG
           ================================================== */}
 
           <button
@@ -402,7 +413,7 @@ export default function Navbar() {
         </nav>
 
         {/* ==================================================
-            MOBILE / TABLET MENU
+            MOBILE MENU
         =================================================== */}
 
         <AnimatePresence initial={false}>
@@ -426,10 +437,8 @@ export default function Navbar() {
               }}
               className="
                 overflow-hidden
-
                 border-t
                 border-slate-200
-
                 bg-white
 
                 dark:border-[#1e334f]
@@ -449,9 +458,7 @@ export default function Navbar() {
                   sm:px-6
                 "
               >
-                {/* =========================================
-                    NAVIGATION LINKS
-                ========================================== */}
+                {/* Navigation Links */}
 
                 <div className="flex flex-col gap-1.5">
                   {navItems.map((item) => {
@@ -466,6 +473,7 @@ export default function Navbar() {
                           relative
                           flex
                           min-h-11
+                          w-full
                           items-center
 
                           rounded-lg
@@ -486,8 +494,6 @@ export default function Navbar() {
                           }
                         `}
                       >
-                        {/* Active indicator */}
-
                         {isActive && (
                           <motion.span
                             layoutId="mobile-active-navbar"
@@ -516,9 +522,7 @@ export default function Navbar() {
                   })}
                 </div>
 
-                {/* =========================================
-                    MOBILE ACTIONS
-                ========================================== */}
+                {/* Mobile Actions */}
 
                 <div
                   className="

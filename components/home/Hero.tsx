@@ -117,6 +117,8 @@ export default function Hero() {
       id="home"
       className="
         relative
+        w-full
+        max-w-full
         overflow-hidden
         border-b
         border-slate-200
@@ -132,7 +134,7 @@ export default function Hero() {
           GRID BACKGROUND
       ====================================================== */}
 
-      <div className="absolute inset-0 grid-background opacity-40 dark:opacity-100" />
+      <div className="pointer-events-none absolute inset-0 grid-background opacity-40 dark:opacity-100" />
 
       {/* =====================================================
           BLUE GLOW
@@ -140,11 +142,13 @@ export default function Hero() {
 
       <div
         className="
+          pointer-events-none
           absolute
           left-1/4
           top-40
           h-72
           w-72
+          max-w-[70vw]
           rounded-full
           bg-blue-500/10
           blur-[120px]
@@ -161,15 +165,21 @@ export default function Hero() {
           mx-auto
           grid
           min-h-screen
+          w-full
           max-w-7xl
+          min-w-0
           items-center
           gap-12
-          px-6
+          overflow-hidden
+          px-4
           pb-20
-          pt-25
+          pt-24
 
-          lg:grid-cols-[1.15fr_0.85fr]
+          sm:px-6
+
+          lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]
           lg:px-8
+          lg:pt-28
         "
       >
         {/* ===================================================
@@ -188,6 +198,10 @@ export default function Hero() {
           transition={{
             duration: 0.7,
           }}
+          className="
+            min-w-0
+            w-full
+          "
         >
           {/* =================================================
               BADGE
@@ -197,6 +211,7 @@ export default function Hero() {
             className="
               mb-7
               inline-flex
+              max-w-full
               items-center
               gap-2
               rounded-full
@@ -218,12 +233,14 @@ export default function Hero() {
               className="
                 h-2
                 w-2
+                shrink-0
                 rounded-full
                 bg-emerald-500
                 shadow-[0_0_10px_#34d399]
               "
             />
-            Full Stack Web & Mobile Developer
+
+            <span className="min-w-0">Full Stack Web & Mobile Developer</span>
           </div>
 
           {/* =================================================
@@ -232,7 +249,8 @@ export default function Hero() {
 
           <h1
             className="
-              max-w-4xl
+              max-w-full
+              break-words
               text-5xl
               font-semibold
               leading-[0.95]
@@ -240,7 +258,9 @@ export default function Hero() {
               text-slate-900
 
               sm:text-6xl
+
               lg:text-7xl
+
               xl:text-[82px]
 
               dark:text-[#e8f0fa]
@@ -257,8 +277,10 @@ export default function Hero() {
           <h2
             className="
               mt-7
+              max-w-full
               text-xl
               font-medium
+              leading-relaxed
               text-slate-700
 
               sm:text-2xl
@@ -297,7 +319,16 @@ export default function Hero() {
               BUTTONS
           ================================================== */}
 
-          <div className="mt-9 flex flex-wrap gap-4">
+          <div
+            className="
+              mt-9
+              flex
+              w-full
+              max-w-full
+              flex-wrap
+              gap-4
+            "
+          >
             {/* Project */}
 
             <a
@@ -363,7 +394,8 @@ export default function Hero() {
                 dark:hover:text-white
               "
             >
-              Download CV
+              {isEnglish ? "Download CV" : "Download CV"}
+
               <Download size={18} />
             </a>
           </div>
@@ -375,6 +407,8 @@ export default function Hero() {
           <div
             className="
               mt-14
+              w-full
+              max-w-full
               border-t
               border-slate-200
               pt-7
@@ -399,7 +433,14 @@ export default function Hero() {
                 : "Teknologi yang Saya Gunakan"}
             </p>
 
-            <div className="flex flex-wrap gap-2">
+            <div
+              className="
+                flex
+                max-w-full
+                flex-wrap
+                gap-2
+              "
+            >
               {["Flutter", "Next.js", "Laravel", "Vue.js", "React Native"].map(
                 (skill) => (
                   <span
@@ -450,6 +491,7 @@ export default function Hero() {
             mx-auto
             w-full
             max-w-xl
+            min-w-0
           "
         >
           {/* =================================================
@@ -458,6 +500,8 @@ export default function Hero() {
 
           <div
             className="
+              w-full
+              max-w-full
               rounded-[28px]
               border
               border-slate-200
@@ -475,6 +519,7 @@ export default function Hero() {
               className="
                 relative
                 aspect-[4/5]
+                w-full
                 overflow-hidden
                 rounded-[22px]
               "
@@ -486,12 +531,14 @@ export default function Hero() {
                 alt="M. Romza Zikrian"
                 fill
                 priority
+                sizes="
+                  (max-width: 1024px) 100vw,
+                  40vw
+                "
                 className="object-cover"
               />
 
-              {/* =================================================
-                  IMAGE GRADIENT
-              ================================================== */}
+              {/* Image Gradient */}
 
               <div
                 className="
@@ -508,9 +555,7 @@ export default function Hero() {
                 "
               />
 
-              {/* =================================================
-                  LOCATION
-              ================================================== */}
+              {/* Location */}
 
               <div
                 className="
@@ -518,6 +563,7 @@ export default function Hero() {
                   bottom-5
                   left-5
                   flex
+                  max-w-[calc(100%-2.5rem)]
                   items-center
                   gap-2
                   rounded-lg
@@ -530,8 +576,9 @@ export default function Hero() {
                   backdrop-blur-md
                 "
               >
-                <MapPin size={17} />
-                Lampung, Indonesia
+                <MapPin size={17} className="shrink-0" />
+
+                <span className="truncate">Lampung, Indonesia</span>
               </div>
             </div>
           </div>
@@ -546,6 +593,8 @@ export default function Hero() {
       <div
         className="
           relative
+          w-full
+          max-w-full
           overflow-hidden
           border-t
           border-slate-200
@@ -604,6 +653,7 @@ export default function Hero() {
           className="
             flex
             w-max
+            max-w-none
             items-center
             gap-8
           "
@@ -626,6 +676,7 @@ export default function Hero() {
                 key={`${skill.name}-${index}`}
                 className="
                   flex
+                  shrink-0
                   items-center
                   gap-3
                   whitespace-nowrap
@@ -636,29 +687,25 @@ export default function Hero() {
                   dark:text-[#aebdd0]
                 "
               >
-                {/* Icon */}
-
                 <Icon
                   className="
                     h-5
                     w-5
+                    shrink-0
                     text-blue-600
 
                     dark:text-[#60a5fa]
                   "
                 />
 
-                {/* Skill Name */}
-
                 <span>{skill.name}</span>
-
-                {/* Separator */}
 
                 <span
                   className="
                     ml-5
                     h-1.5
                     w-1.5
+                    shrink-0
                     rounded-full
                     bg-slate-300
 
@@ -679,6 +726,8 @@ export default function Hero() {
       <div
         className="
           relative
+          w-full
+          max-w-full
           overflow-hidden
           border-t
           border-slate-200
@@ -737,6 +786,7 @@ export default function Hero() {
           className="
             flex
             w-max
+            max-w-none
             items-center
             gap-8
           "
@@ -759,45 +809,42 @@ export default function Hero() {
                 <div
                   key={`${skill.name}-${index}`}
                   className="
-                    flex
-                    items-center
-                    gap-3
-                    whitespace-nowrap
-                    text-sm
-                    font-medium
-                    text-slate-600
+                  flex
+                  shrink-0
+                  items-center
+                  gap-3
+                  whitespace-nowrap
+                  text-sm
+                  font-medium
+                  text-slate-600
 
-                    dark:text-[#aebdd0]
-                  "
+                  dark:text-[#aebdd0]
+                "
                 >
-                  {/* Icon */}
-
                   <Icon
                     className="
-                      h-5
-                      w-5
-                      text-blue-600
+                    h-5
+                    w-5
+                    shrink-0
+                    text-blue-600
 
-                      dark:text-[#60a5fa]
-                    "
+                    dark:text-[#60a5fa]
+                  "
                   />
-
-                  {/* Skill Name */}
 
                   <span>{skill.name}</span>
 
-                  {/* Separator */}
-
                   <span
                     className="
-                      ml-5
-                      h-1.5
-                      w-1.5
-                      rounded-full
-                      bg-slate-300
+                    ml-5
+                    h-1.5
+                    w-1.5
+                    shrink-0
+                    rounded-full
+                    bg-slate-300
 
-                      dark:bg-[#334155]
-                    "
+                    dark:bg-[#334155]
+                  "
                   />
                 </div>
               );
