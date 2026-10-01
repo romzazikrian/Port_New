@@ -167,20 +167,21 @@ export default function Navbar() {
             <Image
               src="/images/logo/loga.png"
               alt="M. Romza Zikrian Logo"
-              width={72}
-              height={72}
+              width={120}
+              height={120}
               priority
               className="
-                h-10
-                w-10
-                object-contain
+    !h-[70px]
+    !w-[70px]
 
-                sm:h-11
-                sm:w-11
+    sm:!h-[80px]
+    sm:!w-[80px]
 
-                lg:h-14
-                lg:w-14
-              "
+    lg:!h-[100px]
+    lg:!w-[100px]
+
+    object-contain
+  "
             />
           </Link>
 
