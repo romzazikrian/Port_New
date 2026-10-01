@@ -1,544 +1,810 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { Menu, X, Moon, Sun } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowDown,
+  BrainCircuit,
+  Computer,
+  Download,
+  Globe2,
+  MapPin,
+  MonitorCog,
+  Smartphone,
+  Wrench,
+} from "lucide-react";
 
-import { useTheme } from "@/context/ThemeContext";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+import {
+  SiAstro,
+  SiCodeigniter,
+  SiFlutter,
+  SiKotlin,
+  SiLaravel,
+  SiNextdotjs,
+  SiVuedotjs,
+} from "react-icons/si";
+
+import { FaJava, FaReact } from "react-icons/fa";
+
 import { useLanguage } from "@/context/LanguageContext";
 
-const navItems = [
+/* =========================================================
+   WEB & MOBILE SKILLS
+========================================================= */
+
+const skills = [
   {
-    id: "about",
-    idLabel: "Tentang",
-    enLabel: "About",
+    name: "Web Developer",
+    icon: Globe2,
   },
   {
-    id: "experience",
-    idLabel: "Pengalaman",
-    enLabel: "Experience",
+    name: "Next.js",
+    icon: SiNextdotjs,
   },
   {
-    id: "projects",
-    idLabel: "Proyek",
-    enLabel: "Projects",
+    name: "Astro",
+    icon: SiAstro,
   },
   {
-    id: "certificates",
-    idLabel: "Sertifikat",
-    enLabel: "Certificates",
+    name: "Vue.js",
+    icon: SiVuedotjs,
   },
   {
-    id: "contact",
-    idLabel: "Kontak",
-    enLabel: "Contact",
+    name: "Laravel",
+    icon: SiLaravel,
+  },
+  {
+    name: "CodeIgniter",
+    icon: SiCodeigniter,
+  },
+  {
+    name: "Mobile Developer",
+    icon: Smartphone,
+  },
+  {
+    name: "Flutter",
+    icon: SiFlutter,
+  },
+  {
+    name: "Kotlin",
+    icon: SiKotlin,
+  },
+  {
+    name: "Java",
+    icon: FaJava,
+  },
+  {
+    name: "React Native",
+    icon: FaReact,
   },
 ];
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+/* =========================================================
+   IT SUPPORT SKILLS
+========================================================= */
 
-  const { theme, toggleTheme } = useTheme();
-  const { language, toggleLanguage } = useLanguage();
+const itSupportSkills = [
+  {
+    name: "Hardware Troubleshooting",
+    icon: Computer,
+  },
+  {
+    name: "Software Troubleshooting",
+    icon: MonitorCog,
+  },
+  {
+    name: "Computer Maintenance",
+    icon: Wrench,
+  },
+  {
+    name: "Technical Problem Solving",
+    icon: BrainCircuit,
+  },
+  {
+    name: "IT Support",
+    icon: Computer,
+  },
+];
 
-  /* ========================================================
-     DETEKSI SECTION AKTIF
-  ======================================================== */
+export default function Hero() {
+  const { language } = useLanguage();
 
-  useEffect(() => {
-    const sections = navItems
-      .map((item) => document.getElementById(item.id))
-      .filter(Boolean) as HTMLElement[];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-        if (visibleSections.length > 0) {
-          setActiveSection(visibleSections[0].target.id);
-        }
-      },
-      {
-        root: null,
-        rootMargin: "-25% 0px -55% 0px",
-        threshold: [0.1, 0.25, 0.5, 0.75],
-      },
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => observer.disconnect();
-  }, []);
-
-  /* ========================================================
-     CLOSE MENU
-  ======================================================== */
-
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
-
-  /* ========================================================
-     NAV CLICK
-  ======================================================== */
-
-  const handleNavClick = (id: string) => {
-    setActiveSection(id);
-    closeMenu();
-  };
+  const isEnglish = language === "en";
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <section
+      id="home"
+      className="
+        relative
+        overflow-hidden
+        border-b
+        border-slate-200
+        bg-white
+        transition-colors
+        duration-300
+
+        dark:border-[#1e334f]
+        dark:bg-[#07101f]
+      "
+    >
+      {/* =====================================================
+          GRID BACKGROUND
+      ====================================================== */}
+
+      <div className="absolute inset-0 grid-background opacity-40 dark:opacity-100" />
+
+      {/* =====================================================
+          BLUE GLOW
+      ====================================================== */}
+
       <div
         className="
-          border-b
-          border-slate-200/70
-          bg-white/85
-          backdrop-blur-xl
-          transition-colors
-          duration-300
+          absolute
+          left-1/4
+          top-40
+          h-72
+          w-72
+          rounded-full
+          bg-blue-500/10
+          blur-[120px]
+        "
+      />
 
-          dark:border-[#1e334f]/70
-          dark:bg-[#07101f]/85
+      {/* =====================================================
+          HERO CONTENT
+      ====================================================== */}
+
+      <div
+        className="
+          relative
+          mx-auto
+          grid
+          min-h-screen
+          max-w-7xl
+          items-center
+          gap-12
+          px-6
+          pb-20
+          pt-25
+
+          lg:grid-cols-[1.15fr_0.85fr]
+          lg:px-8
         "
       >
-        <nav
-          className="
-            mx-auto
-            flex
-            h-16
-            max-w-7xl
-            items-center
-            justify-between
-            px-4
+        {/* ===================================================
+            LEFT CONTENT
+        ==================================================== */}
 
-            sm:px-5
-            lg:h-[72px]
-            lg:px-8
-          "
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 30,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.7,
+          }}
         >
           {/* =================================================
-              LOGO
+              BADGE
           ================================================== */}
 
-          <Link
-            href="/"
-            onClick={() => {
-              setActiveSection("");
-              closeMenu();
-            }}
+          <div
             className="
-              flex
-              shrink-0
+              mb-7
+              inline-flex
               items-center
+              gap-2
+              rounded-full
+              border
+              border-slate-200
+              bg-slate-50/80
+              px-4
+              py-2
+              text-sm
+              text-slate-600
+              backdrop-blur
+
+              dark:border-[#1e334f]
+              dark:bg-[#0b1628]/80
+              dark:text-[#aebdd0]
             "
           >
-            <Image
-              src="/images/logo/loga.png"
-              alt="M. Romza Zikrian Logo"
-              width={80}
-              height={80}
-              priority
+            <span
               className="
-                h-14
-                w-14
-                object-contain
-
-                sm:h-16
-                sm:w-16
-
-                lg:h-[72px]
-                lg:w-[72px]
+                h-2
+                w-2
+                rounded-full
+                bg-emerald-500
+                shadow-[0_0_10px_#34d399]
               "
             />
-          </Link>
+            Full Stack Web & Mobile Developer
+          </div>
 
           {/* =================================================
-              DESKTOP NAVIGATION
-              Mulai LG supaya tablet tidak terlalu penuh
+              NAME
           ================================================== */}
 
-          <div className="hidden items-center gap-1 lg:flex">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.id;
+          <h1
+            className="
+              max-w-4xl
+              text-5xl
+              font-semibold
+              leading-[0.95]
+              tracking-[-0.04em]
+              text-slate-900
 
-              return (
-                <Link
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={() => handleNavClick(item.id)}
-                  className="
-                    relative
-                    rounded-lg
+              sm:text-6xl
+              lg:text-7xl
+              xl:text-[82px]
+
+              dark:text-[#e8f0fa]
+            "
+          >
+            M. Romza{" "}
+            <span className="text-slate-500 dark:text-[#9eb3cf]">Zikrian.</span>
+          </h1>
+
+          {/* =================================================
+              PROFESSION
+          ================================================== */}
+
+          <h2
+            className="
+              mt-7
+              text-xl
+              font-medium
+              text-slate-700
+
+              sm:text-2xl
+
+              dark:text-[#b9c7d9]
+            "
+          >
+            Full Stack Web & Mobile Developer{" "}
+            <span className="text-blue-600 dark:text-[#3b82f6]">|</span> IT
+            Support
+          </h2>
+
+          {/* =================================================
+              DESCRIPTION
+          ================================================== */}
+
+          <p
+            className="
+              mt-6
+              max-w-2xl
+              text-base
+              leading-8
+              text-slate-600
+
+              sm:text-lg
+
+              dark:text-[#94a3b8]
+            "
+          >
+            {isEnglish
+              ? "I develop websites and mobile applications to build modern, responsive digital solutions that meet user needs. I also have experience in IT Support, administration, data processing, and documentation."
+              : "Saya mengembangkan website dan aplikasi mobile untuk membangun solusi digital yang modern, responsif, dan sesuai dengan kebutuhan pengguna. Saya juga berpengalaman dalam IT Support, administrasi, pengolahan data, dan dokumentasi."}
+          </p>
+
+          {/* =================================================
+              BUTTONS
+          ================================================== */}
+
+          <div className="mt-9 flex flex-wrap gap-4">
+            {/* Project */}
+
+            <a
+              href="#projects"
+              className="
+                group
+                flex
+                items-center
+                gap-3
+                rounded-lg
+                bg-blue-600
+                px-6
+                py-4
+                font-semibold
+                text-white
+                transition
+
+                hover:bg-blue-700
+
+                dark:bg-[#3b82f6]
+                dark:hover:bg-[#2563eb]
+              "
+            >
+              {isEnglish ? "View Projects" : "Lihat Project"}
+
+              <ArrowDown
+                size={18}
+                className="
+                  transition-transform
+                  group-hover:translate-y-1
+                "
+              />
+            </a>
+
+            {/* CV */}
+
+            <a
+              href="/cv/CV_M_RomzaZikrian.pdf"
+              download
+              className="
+                flex
+                items-center
+                gap-3
+                rounded-lg
+                border
+                border-slate-200
+                bg-white
+                px-6
+                py-4
+                font-semibold
+                text-slate-700
+                transition
+
+                hover:border-blue-500
+                hover:bg-slate-50
+                hover:text-blue-600
+
+                dark:border-[#1e334f]
+                dark:bg-transparent
+                dark:text-[#cbd5e1]
+                dark:hover:border-[#3b82f6]
+                dark:hover:bg-[#0b1628]
+                dark:hover:text-white
+              "
+            >
+              Download CV
+              <Download size={18} />
+            </a>
+          </div>
+
+          {/* =================================================
+              TECHNOLOGIES
+          ================================================== */}
+
+          <div
+            className="
+              mt-14
+              border-t
+              border-slate-200
+              pt-7
+
+              dark:border-[#1e334f]
+            "
+          >
+            <p
+              className="
+                mb-4
+                text-xs
+                font-medium
+                uppercase
+                tracking-[0.2em]
+                text-slate-400
+
+                dark:text-[#64748b]
+              "
+            >
+              {isEnglish
+                ? "Technologies I Work With"
+                : "Teknologi yang Saya Gunakan"}
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {["Flutter", "Next.js", "Laravel", "Vue.js", "React Native"].map(
+                (skill) => (
+                  <span
+                    key={skill}
+                    className="
+                    rounded-md
+                    border
+                    border-slate-200
+                    bg-slate-50
                     px-3
                     py-2
                     text-sm
-                    font-medium
+                    text-slate-600
                     transition-colors
-                  "
-                >
-                  {/* Active background */}
-
-                  {isActive && (
-                    <motion.span
-                      layoutId="active-navbar"
-                      className="
-                        absolute
-                        inset-0
-                        rounded-lg
-                        bg-blue-50
-
-                        dark:bg-[#3b82f6]/10
-                      "
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-
-                  {/* Active line */}
-
-                  {isActive && (
-                    <motion.span
-                      layoutId="active-navbar-line"
-                      className="
-                        absolute
-                        bottom-0
-                        left-3
-                        right-3
-                        h-0.5
-                        rounded-full
-                        bg-blue-600
-
-                        dark:bg-[#60a5fa]
-                      "
-                      transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 30,
-                      }}
-                    />
-                  )}
-
-                  <span
-                    className={`
-                      relative
-                      z-10
-                      whitespace-nowrap
-                      transition-colors
-                      duration-200
-
-                      ${
-                        isActive
-                          ? "text-blue-600 dark:text-[#60a5fa]"
-                          : "text-slate-600 hover:text-blue-600 dark:text-[#94a3b8] dark:hover:text-[#60a5fa]"
-                      }
-                    `}
-                  >
-                    {language === "id" ? item.idLabel : item.enLabel}
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* =================================================
-              DESKTOP ACTIONS
-          ================================================== */}
-
-          <div className="hidden items-center gap-2 lg:flex">
-            {/* Language */}
-
-            <button
-              type="button"
-              onClick={toggleLanguage}
-              className="
-                flex
-                h-10
-                items-center
-                gap-2
-                rounded-lg
-                border
-                border-slate-200
-                px-3
-                text-sm
-                font-medium
-                text-slate-600
-                transition
-
-                hover:border-blue-500
-                hover:text-blue-600
-
-                dark:border-[#1e334f]
-                dark:text-[#94a3b8]
-                dark:hover:border-[#3b82f6]
-                dark:hover:text-[#60a5fa]
-              "
-              aria-label="Ganti bahasa"
-            >
-              <span className="text-base">
-                {language === "id" ? "🇮🇩" : "🇬🇧"}
-              </span>
-
-              {language === "id" ? "ID" : "EN"}
-            </button>
-
-            {/* Theme */}
-
-            <button
-              type="button"
-              onClick={toggleTheme}
-              className="
-                flex
-                h-10
-                w-10
-                shrink-0
-                items-center
-                justify-center
-                rounded-lg
-                border
-                border-slate-200
-                text-slate-600
-                transition
-
-                hover:border-blue-500
-                hover:text-blue-600
-
-                dark:border-[#1e334f]
-                dark:text-[#94a3b8]
-                dark:hover:border-[#3b82f6]
-                dark:hover:text-[#60a5fa]
-              "
-              aria-label="Ganti tema"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
-            </button>
-          </div>
-
-          {/* =================================================
-              MOBILE / TABLET BUTTON
-          ================================================== */}
-
-          <button
-            type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
-            className="
-              flex
-              h-10
-              w-10
-              shrink-0
-              items-center
-              justify-center
-              rounded-lg
-              border
-              border-slate-200
-              text-slate-700
-              transition
-
-              hover:border-blue-500
-              hover:text-blue-600
-
-              dark:border-[#1e334f]
-              dark:text-[#cbd5e1]
-              dark:hover:border-[#3b82f6]
-
-              lg:hidden
-            "
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
-        </nav>
-
-        {/* ==================================================
-            MOBILE / TABLET MENU
-        =================================================== */}
-
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{
-                opacity: 0,
-                height: 0,
-              }}
-              animate={{
-                opacity: 1,
-                height: "auto",
-              }}
-              exit={{
-                opacity: 0,
-                height: 0,
-              }}
-              transition={{
-                duration: 0.2,
-                ease: "easeOut",
-              }}
-              className="
-                overflow-hidden
-                border-t
-                border-slate-200
-                bg-white
-
-                dark:border-[#1e334f]
-                dark:bg-[#07101f]
-
-                lg:hidden
-              "
-            >
-              <div className="px-4 py-4 sm:px-5">
-                {/* Navigation */}
-
-                <div className="flex flex-col gap-1.5">
-                  {navItems.map((item) => {
-                    const isActive = activeSection === item.id;
-
-                    return (
-                      <Link
-                        key={item.id}
-                        href={`#${item.id}`}
-                        onClick={() => handleNavClick(item.id)}
-                        className={`
-                          relative
-                          flex
-                          min-h-11
-                          items-center
-                          rounded-lg
-                          px-4
-                          py-2.5
-                          text-sm
-                          font-medium
-                          transition-all
-
-                          ${
-                            isActive
-                              ? "bg-blue-50 text-blue-600 dark:bg-[#0b1628] dark:text-[#60a5fa]"
-                              : "text-slate-700 hover:bg-slate-100 hover:text-blue-600 dark:text-[#cbd5e1] dark:hover:bg-[#0b1628] dark:hover:text-[#60a5fa]"
-                          }
-                        `}
-                      >
-                        {isActive && (
-                          <motion.span
-                            layoutId="mobile-active-navbar"
-                            className="
-                              absolute
-                              left-0
-                              top-1/2
-                              h-6
-                              w-1
-                              -translate-y-1/2
-                              rounded-full
-                              bg-blue-600
-
-                              dark:bg-[#60a5fa]
-                            "
-                          />
-                        )}
-
-                        {language === "id" ? item.idLabel : item.enLabel}
-                      </Link>
-                    );
-                  })}
-                </div>
-
-                {/* =================================================
-                    MOBILE ACTIONS
-                ================================================== */}
-
-                <div
-                  className="
-                    mt-3
-                    flex
-                    gap-2
-                    border-t
-                    border-slate-200
-                    pt-3
 
                     dark:border-[#1e334f]
+                    dark:bg-[#0b1628]/80
+                    dark:text-[#aebdd0]
+                  "
+                  >
+                    {skill}
+                  </span>
+                ),
+              )}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ===================================================
+            RIGHT CONTENT
+        ==================================================== */}
+
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: 40,
+          }}
+          animate={{
+            opacity: 1,
+            x: 0,
+          }}
+          transition={{
+            duration: 0.8,
+            delay: 0.15,
+          }}
+          className="
+            relative
+            mx-auto
+            w-full
+            max-w-xl
+          "
+        >
+          {/* =================================================
+              OUTER CARD
+          ================================================== */}
+
+          <div
+            className="
+              rounded-[28px]
+              border
+              border-slate-200
+              bg-slate-50/80
+              p-3
+              shadow-2xl
+              backdrop-blur
+              transition-colors
+
+              dark:border-[#1e334f]
+              dark:bg-[#0b1628]/80
+            "
+          >
+            <div
+              className="
+                relative
+                aspect-[4/5]
+                overflow-hidden
+                rounded-[22px]
+              "
+            >
+              {/* Profile Image */}
+
+              <Image
+                src="/images/foto/romza.jpg"
+                alt="M. Romza Zikrian"
+                fill
+                priority
+                className="object-cover"
+              />
+
+              {/* =================================================
+                  IMAGE GRADIENT
+              ================================================== */}
+
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-black/50
+                  via-transparent
+                  to-transparent
+
+                  dark:from-[#07101f]
+                  dark:via-transparent
+                  dark:to-transparent
+                "
+              />
+
+              {/* =================================================
+                  LOCATION
+              ================================================== */}
+
+              <div
+                className="
+                  absolute
+                  bottom-5
+                  left-5
+                  flex
+                  items-center
+                  gap-2
+                  rounded-lg
+                  bg-black/50
+                  px-4
+                  py-3
+                  text-sm
+                  font-medium
+                  text-white
+                  backdrop-blur-md
+                "
+              >
+                <MapPin size={17} />
+                Lampung, Indonesia
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* =====================================================
+          FIRST MARQUEE
+          WEB & MOBILE
+      ====================================================== */}
+
+      <div
+        className="
+          relative
+          overflow-hidden
+          border-t
+          border-slate-200
+          bg-slate-50/70
+          py-5
+          transition-colors
+          duration-300
+
+          dark:border-[#1e334f]
+          dark:bg-[#07101f]
+        "
+      >
+        {/* LEFT FADE */}
+
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-0
+            top-0
+            z-10
+            h-full
+            w-20
+
+            bg-gradient-to-r
+            from-slate-50
+            to-transparent
+
+            dark:from-[#07101f]
+          "
+        />
+
+        {/* RIGHT FADE */}
+
+        <div
+          className="
+            pointer-events-none
+            absolute
+            right-0
+            top-0
+            z-10
+            h-full
+            w-20
+
+            bg-gradient-to-l
+            from-slate-50
+            to-transparent
+
+            dark:from-[#07101f]
+          "
+        />
+
+        {/* MOVING WEB & MOBILE SKILLS */}
+
+        <motion.div
+          className="
+            flex
+            w-max
+            items-center
+            gap-8
+          "
+          animate={{
+            x: ["0%", "-50%"],
+          }}
+          transition={{
+            x: {
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+        >
+          {[...skills, ...skills, ...skills].map((skill, index) => {
+            const Icon = skill.icon;
+
+            return (
+              <div
+                key={`${skill.name}-${index}`}
+                className="
+                  flex
+                  items-center
+                  gap-3
+                  whitespace-nowrap
+                  text-sm
+                  font-medium
+                  text-slate-600
+
+                  dark:text-[#aebdd0]
+                "
+              >
+                {/* Icon */}
+
+                <Icon
+                  className="
+                    h-5
+                    w-5
+                    text-blue-600
+
+                    dark:text-[#60a5fa]
+                  "
+                />
+
+                {/* Skill Name */}
+
+                <span>{skill.name}</span>
+
+                {/* Separator */}
+
+                <span
+                  className="
+                    ml-5
+                    h-1.5
+                    w-1.5
+                    rounded-full
+                    bg-slate-300
+
+                    dark:bg-[#334155]
+                  "
+                />
+              </div>
+            );
+          })}
+        </motion.div>
+      </div>
+
+      {/* =====================================================
+          SECOND MARQUEE
+          IT SUPPORT
+      ====================================================== */}
+
+      <div
+        className="
+          relative
+          overflow-hidden
+          border-t
+          border-slate-200
+          bg-white
+          py-5
+          transition-colors
+          duration-300
+
+          dark:border-[#1e334f]
+          dark:bg-[#07101f]
+        "
+      >
+        {/* LEFT FADE */}
+
+        <div
+          className="
+            pointer-events-none
+            absolute
+            left-0
+            top-0
+            z-10
+            h-full
+            w-20
+
+            bg-gradient-to-r
+            from-white
+            to-transparent
+
+            dark:from-[#07101f]
+          "
+        />
+
+        {/* RIGHT FADE */}
+
+        <div
+          className="
+            pointer-events-none
+            absolute
+            right-0
+            top-0
+            z-10
+            h-full
+            w-20
+
+            bg-gradient-to-l
+            from-white
+            to-transparent
+
+            dark:from-[#07101f]
+          "
+        />
+
+        {/* MOVING IT SUPPORT SKILLS */}
+
+        <motion.div
+          className="
+            flex
+            w-max
+            items-center
+            gap-8
+          "
+          animate={{
+            x: ["-50%", "0%"],
+          }}
+          transition={{
+            x: {
+              duration: 28,
+              repeat: Infinity,
+              ease: "linear",
+            },
+          }}
+        >
+          {[...itSupportSkills, ...itSupportSkills, ...itSupportSkills].map(
+            (skill, index) => {
+              const Icon = skill.icon;
+
+              return (
+                <div
+                  key={`${skill.name}-${index}`}
+                  className="
+                    flex
+                    items-center
+                    gap-3
+                    whitespace-nowrap
+                    text-sm
+                    font-medium
+                    text-slate-600
+
+                    dark:text-[#aebdd0]
                   "
                 >
-                  {/* Language */}
+                  {/* Icon */}
 
-                  <button
-                    type="button"
-                    onClick={toggleLanguage}
+                  <Icon
                     className="
-                      flex
-                      min-h-11
-                      flex-1
-                      items-center
-                      justify-center
-                      gap-2
-                      rounded-lg
-                      border
-                      border-slate-200
-                      px-3
-                      text-sm
-                      font-medium
-                      text-slate-700
-                      transition
+                      h-5
+                      w-5
+                      text-blue-600
 
-                      hover:border-blue-500
-                      hover:text-blue-600
-
-                      dark:border-[#1e334f]
-                      dark:text-[#cbd5e1]
-                      dark:hover:border-[#3b82f6]
-                      dark:hover:text-[#60a5fa]
+                      dark:text-[#60a5fa]
                     "
-                  >
-                    <span>{language === "id" ? "🇮🇩" : "🇬🇧"}</span>
+                  />
 
-                    {language === "id" ? "Indonesia" : "English"}
-                  </button>
+                  {/* Skill Name */}
 
-                  {/* Theme */}
+                  <span>{skill.name}</span>
 
-                  <button
-                    type="button"
-                    onClick={toggleTheme}
+                  {/* Separator */}
+
+                  <span
                     className="
-                      flex
-                      min-h-11
-                      w-11
-                      shrink-0
-                      items-center
-                      justify-center
-                      rounded-lg
-                      border
-                      border-slate-200
-                      transition
+                      ml-5
+                      h-1.5
+                      w-1.5
+                      rounded-full
+                      bg-slate-300
 
-                      hover:border-blue-500
-
-                      dark:border-[#1e334f]
-                      dark:hover:border-[#3b82f6]
+                      dark:bg-[#334155]
                     "
-                    aria-label="Ganti tema"
-                  >
-                    {theme === "dark" ? (
-                      <Sun className="h-4 w-4 text-yellow-400" />
-                    ) : (
-                      <Moon className="h-4 w-4 text-slate-700" />
-                    )}
-                  </button>
+                  />
                 </div>
-              </div>
-            </motion.div>
+              );
+            },
           )}
-        </AnimatePresence>
+        </motion.div>
       </div>
-    </header>
+    </section>
   );
 }

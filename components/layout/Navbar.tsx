@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Menu, X, Moon, Sun } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { useTheme } from "@/context/ThemeContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -45,7 +45,7 @@ export default function Navbar() {
   const { language, toggleLanguage } = useLanguage();
 
   /* ========================================================
-     DETEKSI SECTION YANG SEDANG AKTIF
+     DETEKSI SECTION AKTIF
   ======================================================== */
 
   useEffect(() => {
@@ -72,13 +72,11 @@ export default function Navbar() {
 
     sections.forEach((section) => observer.observe(section));
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   /* ========================================================
-     CLOSE MOBILE MENU
+     CLOSE MENU
   ======================================================== */
 
   const closeMenu = () => {
@@ -86,7 +84,7 @@ export default function Navbar() {
   };
 
   /* ========================================================
-     HANDLE NAV CLICK
+     NAV CLICK
   ======================================================== */
 
   const handleNavClick = (id: string) => {
@@ -96,64 +94,76 @@ export default function Navbar() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      {/* ====================================================
-          NAVBAR CONTAINER
-      ===================================================== */}
-
       <div
         className="
           border-b
           border-slate-200/70
-          bg-white/80
+          bg-white/85
           backdrop-blur-xl
           transition-colors
           duration-300
 
           dark:border-[#1e334f]/70
-          dark:bg-[#07101f]/80
+          dark:bg-[#07101f]/85
         "
       >
         <nav
           className="
             mx-auto
             flex
-            h-[72px]
+            h-16
             max-w-7xl
             items-center
             justify-between
-            px-6
+            px-4
 
+            sm:px-5
+            lg:h-[72px]
             lg:px-8
           "
         >
           {/* =================================================
               LOGO
           ================================================== */}
+
           <Link
             href="/"
             onClick={() => {
               setActiveSection("");
-              setIsOpen(false);
+              closeMenu();
             }}
-            className="flex items-center gap-3"
+            className="
+              flex
+              shrink-0
+              items-center
+            "
           >
             <Image
               src="/images/logo/loga.png"
               alt="M. Romza Zikrian Logo"
-              width={70}
-              height={70}
-              className="h-20 w-20 object-contain"
+              width={80}
+              height={80}
               priority
-            />
+              className="
+                h-14
+                w-14
+                object-contain
 
-            <div className="hidden sm:block"></div>
+                sm:h-16
+                sm:w-16
+
+                lg:h-[72px]
+                lg:w-[72px]
+              "
+            />
           </Link>
 
           {/* =================================================
               DESKTOP NAVIGATION
+              Mulai LG supaya tablet tidak terlalu penuh
           ================================================== */}
 
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
 
@@ -172,7 +182,7 @@ export default function Navbar() {
                     transition-colors
                   "
                 >
-                  {/* Active Background */}
+                  {/* Active background */}
 
                   {isActive && (
                     <motion.span
@@ -193,7 +203,7 @@ export default function Navbar() {
                     />
                   )}
 
-                  {/* Active Bottom Line */}
+                  {/* Active line */}
 
                   {isActive && (
                     <motion.span
@@ -217,14 +227,14 @@ export default function Navbar() {
                     />
                   )}
 
-                  {/* Text */}
-
                   <span
                     className={`
                       relative
                       z-10
+                      whitespace-nowrap
                       transition-colors
                       duration-200
+
                       ${
                         isActive
                           ? "text-blue-600 dark:text-[#60a5fa]"
@@ -243,7 +253,7 @@ export default function Navbar() {
               DESKTOP ACTIONS
           ================================================== */}
 
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             {/* Language */}
 
             <button
@@ -289,6 +299,7 @@ export default function Navbar() {
                 flex
                 h-10
                 w-10
+                shrink-0
                 items-center
                 justify-center
                 rounded-lg
@@ -316,27 +327,33 @@ export default function Navbar() {
           </div>
 
           {/* =================================================
-              MOBILE MENU BUTTON
+              MOBILE / TABLET BUTTON
           ================================================== */}
 
           <button
             type="button"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => setIsOpen((prev) => !prev)}
             className="
               flex
               h-10
               w-10
+              shrink-0
               items-center
               justify-center
               rounded-lg
               border
               border-slate-200
               text-slate-700
+              transition
 
-              md:hidden
+              hover:border-blue-500
+              hover:text-blue-600
 
               dark:border-[#1e334f]
               dark:text-[#cbd5e1]
+              dark:hover:border-[#3b82f6]
+
+              lg:hidden
             "
             aria-label="Toggle menu"
             aria-expanded={isOpen}
@@ -346,173 +363,181 @@ export default function Navbar() {
         </nav>
 
         {/* ==================================================
-            MOBILE MENU
+            MOBILE / TABLET MENU
         =================================================== */}
 
-        {isOpen && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              height: 0,
-            }}
-            animate={{
-              opacity: 1,
-              height: "auto",
-            }}
-            exit={{
-              opacity: 0,
-              height: 0,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-            className="
-              overflow-hidden
-              border-t
-              border-slate-200
-              bg-white
-              px-6
-              py-5
-
-              dark:border-[#1e334f]
-              dark:bg-[#07101f]
-
-              md:hidden
-            "
-          >
-            <div className="flex flex-col gap-2">
-              {navItems.map((item) => {
-                const isActive = activeSection === item.id;
-
-                return (
-                  <Link
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={() => handleNavClick(item.id)}
-                    className={`
-                      relative
-                      rounded-lg
-                      px-4
-                      py-3
-                      text-sm
-                      font-medium
-                      transition-all
-
-                      ${
-                        isActive
-                          ? "bg-blue-50 text-blue-600 dark:bg-[#0b1628] dark:text-[#60a5fa]"
-                          : "text-slate-700 hover:bg-slate-100 hover:text-blue-600 dark:text-[#cbd5e1] dark:hover:bg-[#0b1628] dark:hover:text-[#60a5fa]"
-                      }
-                    `}
-                  >
-                    {/* Active indicator */}
-
-                    {isActive && (
-                      <motion.span
-                        layoutId="mobile-active-navbar"
-                        className="
-                          absolute
-                          left-0
-                          top-1/2
-                          h-6
-                          w-1
-                          -translate-y-1/2
-                          rounded-full
-                          bg-blue-600
-
-                          dark:bg-[#60a5fa]
-                        "
-                      />
-                    )}
-
-                    {language === "id" ? item.idLabel : item.enLabel}
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* =================================================
-                MOBILE ACTIONS
-            ================================================== */}
-
-            <div
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{
+                opacity: 0,
+                height: 0,
+              }}
+              animate={{
+                opacity: 1,
+                height: "auto",
+              }}
+              exit={{
+                opacity: 0,
+                height: 0,
+              }}
+              transition={{
+                duration: 0.2,
+                ease: "easeOut",
+              }}
               className="
-                mt-4
-                flex
-                gap-2
+                overflow-hidden
                 border-t
                 border-slate-200
-                pt-4
+                bg-white
 
                 dark:border-[#1e334f]
+                dark:bg-[#07101f]
+
+                lg:hidden
               "
             >
-              {/* Language */}
+              <div className="px-4 py-4 sm:px-5">
+                {/* Navigation */}
 
-              <button
-                type="button"
-                onClick={toggleLanguage}
-                className="
-                  flex
-                  flex-1
-                  items-center
-                  justify-center
-                  gap-2
-                  rounded-lg
-                  border
-                  border-slate-200
-                  py-3
-                  text-sm
-                  text-slate-700
-                  transition
+                <div className="flex flex-col gap-1.5">
+                  {navItems.map((item) => {
+                    const isActive = activeSection === item.id;
 
-                  hover:border-blue-500
-                  hover:text-blue-600
+                    return (
+                      <Link
+                        key={item.id}
+                        href={`#${item.id}`}
+                        onClick={() => handleNavClick(item.id)}
+                        className={`
+                          relative
+                          flex
+                          min-h-11
+                          items-center
+                          rounded-lg
+                          px-4
+                          py-2.5
+                          text-sm
+                          font-medium
+                          transition-all
 
-                  dark:border-[#1e334f]
-                  dark:text-[#cbd5e1]
-                  dark:hover:border-[#3b82f6]
-                  dark:hover:text-[#60a5fa]
-                "
-              >
-                <span className="text-base">
-                  {language === "id" ? "🇮🇩" : "🇬🇧"}
-                </span>
+                          ${
+                            isActive
+                              ? "bg-blue-50 text-blue-600 dark:bg-[#0b1628] dark:text-[#60a5fa]"
+                              : "text-slate-700 hover:bg-slate-100 hover:text-blue-600 dark:text-[#cbd5e1] dark:hover:bg-[#0b1628] dark:hover:text-[#60a5fa]"
+                          }
+                        `}
+                      >
+                        {isActive && (
+                          <motion.span
+                            layoutId="mobile-active-navbar"
+                            className="
+                              absolute
+                              left-0
+                              top-1/2
+                              h-6
+                              w-1
+                              -translate-y-1/2
+                              rounded-full
+                              bg-blue-600
 
-                {language === "id" ? "Indonesia" : "English"}
-              </button>
+                              dark:bg-[#60a5fa]
+                            "
+                          />
+                        )}
 
-              {/* Theme */}
+                        {language === "id" ? item.idLabel : item.enLabel}
+                      </Link>
+                    );
+                  })}
+                </div>
 
-              <button
-                type="button"
-                onClick={toggleTheme}
-                className="
-                  flex
-                  w-12
-                  items-center
-                  justify-center
-                  rounded-lg
-                  border
-                  border-slate-200
-                  transition
+                {/* =================================================
+                    MOBILE ACTIONS
+                ================================================== */}
 
-                  hover:border-blue-500
+                <div
+                  className="
+                    mt-3
+                    flex
+                    gap-2
+                    border-t
+                    border-slate-200
+                    pt-3
 
-                  dark:border-[#1e334f]
-                  dark:hover:border-[#3b82f6]
-                "
-                aria-label="Ganti tema"
-              >
-                {theme === "dark" ? (
-                  <Sun className="h-4 w-4 text-yellow-400" />
-                ) : (
-                  <Moon className="h-4 w-4 text-slate-700" />
-                )}
-              </button>
-            </div>
-          </motion.div>
-        )}
+                    dark:border-[#1e334f]
+                  "
+                >
+                  {/* Language */}
+
+                  <button
+                    type="button"
+                    onClick={toggleLanguage}
+                    className="
+                      flex
+                      min-h-11
+                      flex-1
+                      items-center
+                      justify-center
+                      gap-2
+                      rounded-lg
+                      border
+                      border-slate-200
+                      px-3
+                      text-sm
+                      font-medium
+                      text-slate-700
+                      transition
+
+                      hover:border-blue-500
+                      hover:text-blue-600
+
+                      dark:border-[#1e334f]
+                      dark:text-[#cbd5e1]
+                      dark:hover:border-[#3b82f6]
+                      dark:hover:text-[#60a5fa]
+                    "
+                  >
+                    <span>{language === "id" ? "🇮🇩" : "🇬🇧"}</span>
+
+                    {language === "id" ? "Indonesia" : "English"}
+                  </button>
+
+                  {/* Theme */}
+
+                  <button
+                    type="button"
+                    onClick={toggleTheme}
+                    className="
+                      flex
+                      min-h-11
+                      w-11
+                      shrink-0
+                      items-center
+                      justify-center
+                      rounded-lg
+                      border
+                      border-slate-200
+                      transition
+
+                      hover:border-blue-500
+
+                      dark:border-[#1e334f]
+                      dark:hover:border-[#3b82f6]
+                    "
+                    aria-label="Ganti tema"
+                  >
+                    {theme === "dark" ? (
+                      <Sun className="h-4 w-4 text-yellow-400" />
+                    ) : (
+                      <Moon className="h-4 w-4 text-slate-700" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );
