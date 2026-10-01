@@ -337,7 +337,7 @@ export default function Hero() {
             {/* CV */}
 
             <a
-              href="/cv/CV_M_RomzaZikrian.pdf"
+              href="/cv/CV_M Romza Zikrian.pdf"
               download
               className="
                 flex
