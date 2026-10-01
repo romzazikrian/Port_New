@@ -53,6 +53,8 @@ export default function Navbar() {
       .map((item) => document.getElementById(item.id))
       .filter(Boolean) as HTMLElement[];
 
+    if (sections.length === 0) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleSections = entries
@@ -70,9 +72,13 @@ export default function Navbar() {
       },
     );
 
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => {
+      observer.observe(section);
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   /* ========================================================
@@ -84,7 +90,7 @@ export default function Navbar() {
   };
 
   /* ========================================================
-     NAV CLICK
+     NAVIGATION CLICK
   ======================================================== */
 
   const handleNavClick = (id: string) => {
@@ -93,18 +99,23 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 w-full">
+      {/* ====================================================
+          NAVBAR
+      ===================================================== */}
+
       <div
         className="
+          w-full
           border-b
           border-slate-200/70
-          bg-white/85
+          bg-white/90
           backdrop-blur-xl
           transition-colors
           duration-300
 
           dark:border-[#1e334f]/70
-          dark:bg-[#07101f]/85
+          dark:bg-[#07101f]/95
         "
       >
         <nav
@@ -112,12 +123,14 @@ export default function Navbar() {
             mx-auto
             flex
             h-16
+            w-full
             max-w-7xl
             items-center
             justify-between
             px-4
 
-            sm:px-5
+            sm:px-6
+
             lg:h-[72px]
             lg:px-8
           "
@@ -160,7 +173,7 @@ export default function Navbar() {
 
           {/* =================================================
               DESKTOP NAVIGATION
-              Mulai LG supaya tablet tidak terlalu penuh
+              Hanya muncul di laptop / desktop
           ================================================== */}
 
           <div className="hidden items-center gap-1 lg:flex">
@@ -271,13 +284,15 @@ export default function Navbar() {
                 text-sm
                 font-medium
                 text-slate-600
-                transition
+                transition-all
+                duration-200
 
                 hover:border-blue-500
                 hover:text-blue-600
 
                 dark:border-[#1e334f]
                 dark:text-[#94a3b8]
+
                 dark:hover:border-[#3b82f6]
                 dark:hover:text-[#60a5fa]
               "
@@ -306,13 +321,15 @@ export default function Navbar() {
                 border
                 border-slate-200
                 text-slate-600
-                transition
+                transition-all
+                duration-200
 
                 hover:border-blue-500
                 hover:text-blue-600
 
                 dark:border-[#1e334f]
                 dark:text-[#94a3b8]
+
                 dark:hover:border-[#3b82f6]
                 dark:hover:text-[#60a5fa]
               "
@@ -327,38 +344,60 @@ export default function Navbar() {
           </div>
 
           {/* =================================================
-              MOBILE / TABLET BUTTON
+              MOBILE / TABLET HAMBURGER
+              SELALU TERLIHAT DI BAWAH LG
           ================================================== */}
 
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
             className="
+              relative
+              z-[60]
+
               flex
-              h-10
-              w-10
+              h-11
+              w-11
               shrink-0
               items-center
               justify-center
-              rounded-lg
+
+              rounded-xl
+
               border
-              border-slate-200
-              text-slate-700
-              transition
+              border-slate-300
+
+              bg-white
+
+              text-slate-800
+
+              shadow-sm
+
+              transition-all
+              duration-200
 
               hover:border-blue-500
+              hover:bg-blue-50
               hover:text-blue-600
 
-              dark:border-[#1e334f]
-              dark:text-[#cbd5e1]
+              dark:border-[#29415f]
+              dark:bg-[#0b1628]
+              dark:text-[#e2e8f0]
+
               dark:hover:border-[#3b82f6]
+              dark:hover:bg-[#10213a]
+              dark:hover:text-[#60a5fa]
 
               lg:hidden
             "
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Tutup menu" : "Buka menu"}
             aria-expanded={isOpen}
           >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isOpen ? (
+              <X className="h-5 w-5" strokeWidth={2.2} />
+            ) : (
+              <Menu className="h-5 w-5" strokeWidth={2.2} />
+            )}
           </button>
         </nav>
 
@@ -366,7 +405,7 @@ export default function Navbar() {
             MOBILE / TABLET MENU
         =================================================== */}
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {isOpen && (
             <motion.div
               initial={{
@@ -382,13 +421,15 @@ export default function Navbar() {
                 height: 0,
               }}
               transition={{
-                duration: 0.2,
+                duration: 0.22,
                 ease: "easeOut",
               }}
               className="
                 overflow-hidden
+
                 border-t
                 border-slate-200
+
                 bg-white
 
                 dark:border-[#1e334f]
@@ -397,8 +438,20 @@ export default function Navbar() {
                 lg:hidden
               "
             >
-              <div className="px-4 py-4 sm:px-5">
-                {/* Navigation */}
+              <div
+                className="
+                  mx-auto
+                  w-full
+                  max-w-7xl
+                  px-4
+                  py-4
+
+                  sm:px-6
+                "
+              >
+                {/* =========================================
+                    NAVIGATION LINKS
+                ========================================== */}
 
                 <div className="flex flex-col gap-1.5">
                   {navItems.map((item) => {
@@ -414,12 +467,17 @@ export default function Navbar() {
                           flex
                           min-h-11
                           items-center
+
                           rounded-lg
+
                           px-4
                           py-2.5
+
                           text-sm
                           font-medium
+
                           transition-all
+                          duration-200
 
                           ${
                             isActive
@@ -428,6 +486,8 @@ export default function Navbar() {
                           }
                         `}
                       >
+                        {/* Active indicator */}
+
                         {isActive && (
                           <motion.span
                             layoutId="mobile-active-navbar"
@@ -435,10 +495,14 @@ export default function Navbar() {
                               absolute
                               left-0
                               top-1/2
+
                               h-6
                               w-1
+
                               -translate-y-1/2
+
                               rounded-full
+
                               bg-blue-600
 
                               dark:bg-[#60a5fa]
@@ -452,18 +516,20 @@ export default function Navbar() {
                   })}
                 </div>
 
-                {/* =================================================
+                {/* =========================================
                     MOBILE ACTIONS
-                ================================================== */}
+                ========================================== */}
 
                 <div
                   className="
-                    mt-3
+                    mt-4
                     flex
                     gap-2
+
                     border-t
                     border-slate-200
-                    pt-3
+
+                    pt-4
 
                     dark:border-[#1e334f]
                   "
@@ -480,20 +546,27 @@ export default function Navbar() {
                       items-center
                       justify-center
                       gap-2
+
                       rounded-lg
+
                       border
                       border-slate-200
+
                       px-3
+
                       text-sm
                       font-medium
+
                       text-slate-700
-                      transition
+
+                      transition-all
 
                       hover:border-blue-500
                       hover:text-blue-600
 
                       dark:border-[#1e334f]
                       dark:text-[#cbd5e1]
+
                       dark:hover:border-[#3b82f6]
                       dark:hover:text-[#60a5fa]
                     "
@@ -515,10 +588,13 @@ export default function Navbar() {
                       shrink-0
                       items-center
                       justify-center
+
                       rounded-lg
+
                       border
                       border-slate-200
-                      transition
+
+                      transition-all
 
                       hover:border-blue-500
 
