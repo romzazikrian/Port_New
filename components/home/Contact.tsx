@@ -34,6 +34,7 @@ export default function Contact() {
         {/* =========================
             HEADING
         ========================== */}
+
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -80,6 +81,7 @@ export default function Contact() {
         {/* =========================
             CONTENT
         ========================== */}
+
         <div
           className="
             mt-10
@@ -97,6 +99,7 @@ export default function Contact() {
           {/* =========================
               CONTACT INTRODUCTION
           ========================== */}
+
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -126,7 +129,8 @@ export default function Contact() {
               dark:hover:shadow-blue-950/20
             "
           >
-            {/* Icon */}
+            {/* ICON */}
+
             <div
               className="
                 flex
@@ -140,6 +144,12 @@ export default function Contact() {
                 border-blue-200
                 bg-blue-50
                 text-blue-600
+                transition-all
+                duration-300
+                hover:scale-105
+                hover:shadow-lg
+                hover:shadow-blue-500/20
+
                 sm:h-14
                 sm:w-14
 
@@ -151,7 +161,8 @@ export default function Contact() {
               <Code2 className="h-6 w-6 sm:h-7 sm:w-7" />
             </div>
 
-            {/* Content */}
+            {/* CONTENT */}
+
             <div className="mt-5 min-w-0 sm:mt-6">
               <h3
                 className="
@@ -184,12 +195,14 @@ export default function Contact() {
               </p>
             </div>
 
-            {/* WhatsApp Button */}
+            {/* WHATSAPP BUTTON */}
+
             <a
               href="https://wa.me/6288747607844"
               target="_blank"
               rel="noopener noreferrer"
               className="
+                group
                 mt-6
                 inline-flex
                 w-full
@@ -198,7 +211,7 @@ export default function Contact() {
                 justify-center
                 gap-2
                 rounded-xl
-                bg-blue-600
+                bg-[#25D366]
                 px-4
                 py-3
                 text-sm
@@ -206,42 +219,61 @@ export default function Contact() {
                 text-white
                 transition-all
                 duration-300
+
                 hover:-translate-y-0.5
-                hover:bg-blue-700
+                hover:bg-[#1ebe5d]
                 hover:shadow-lg
-                hover:shadow-blue-500/20
+                hover:shadow-[#25D366]/25
+
                 sm:w-fit
                 sm:px-5
 
-                dark:bg-[#3b82f6]
-                dark:hover:bg-[#2563eb]
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-[#25D366]
+                focus-visible:ring-offset-2
+
+                dark:focus-visible:ring-offset-[#0b1628]
               "
             >
               <span>{isEnglish ? "Contact Me" : "Hubungi Saya"}</span>
 
-              <ArrowUpRight className="h-4 w-4 shrink-0" />
+              <ArrowUpRight
+                className="
+                  h-4
+                  w-4
+                  shrink-0
+                  transition-transform
+                  duration-300
+                  group-hover:-translate-y-0.5
+                  group-hover:translate-x-0.5
+                "
+              />
             </a>
           </motion.div>
 
           {/* =========================
               CONTACT CARDS
           ========================== */}
+
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="
-              grid
-              min-w-0
-              w-full
-              grid-cols-1
-              gap-4
-              sm:grid-cols-2
-            "
+    grid
+    min-w-0
+    w-full
+    grid-cols-1
+    items-stretch
+    gap-4
+    sm:grid-cols-2
+    auto-rows-fr
+  "
           >
             {contacts.map((contact) => (
-              <div key={contact.name} className="min-w-0 w-full">
+              <div key={contact.name} className="flex min-w-0 w-full">
                 <ContactCard contact={contact} />
               </div>
             ))}

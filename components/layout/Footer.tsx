@@ -5,23 +5,61 @@ const socialLinks = [
   {
     name: "GitHub",
     href: "https://github.com/romzazikrian",
-    icon: <FaGithub className="h-4 w-4" />,
+    icon: <FaGithub className="h-5 w-5 text-white" />,
+    hover:
+      "hover:border-white/50 hover:bg-white/10 hover:shadow-[0_0_18px_rgba(255,255,255,0.15)]",
   },
   {
     name: "LinkedIn",
     href: "https://linkedin.com/in/mromzazikrian",
-    icon: <FaLinkedinIn className="h-4 w-4" />,
+    icon: <FaLinkedinIn className="h-5 w-5 text-[#0A66C2]" />,
+    hover:
+      "hover:border-[#0A66C2] hover:bg-[#0A66C2]/10 hover:shadow-[0_0_18px_rgba(10,102,194,0.25)]",
   },
   {
     name: "Instagram",
     href: "https://instagram.com/mhmmdromza",
-    icon: <FaInstagram className="h-4 w-4" />,
+    icon: (
+      <span
+        className="
+          flex
+          h-7
+          w-7
+          items-center
+          justify-center
+          rounded-lg
+          bg-gradient-to-tr
+          from-[#FFDC80]
+          via-[#F77737]
+          via-[#E1306C]
+          to-[#833AB4]
+        "
+      >
+        <FaInstagram className="h-4 w-4 text-white" />
+      </span>
+    ),
+    hover:
+      "hover:border-[#E1306C] hover:bg-gradient-to-tr hover:from-[#833AB4]/10 hover:via-[#E1306C]/10 hover:to-[#F77737]/10 hover:shadow-[0_0_18px_rgba(225,48,108,0.25)]",
   },
 ];
 
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-[#1e334f] bg-[#050b14] px-4 py-8 sm:px-6 sm:py-10">
+    <footer
+      className="
+        w-full
+        border-t
+        border-[#1e334f]
+        bg-[#050b14]
+        px-4
+        py-8
+        transition-colors
+        duration-300
+
+        sm:px-6
+        sm:py-10
+      "
+    >
       <div className="mx-auto w-full max-w-7xl">
         <div
           className="
@@ -31,6 +69,7 @@ export default function Footer() {
             justify-center
             gap-6
             text-center
+
             md:grid
             md:grid-cols-3
             md:items-center
@@ -41,7 +80,15 @@ export default function Footer() {
           {/* =========================
               LOGO
           ========================== */}
-          <div className="flex w-full justify-center md:justify-start">
+
+          <div
+            className="
+              flex
+              w-full
+              justify-center
+              md:justify-start
+            "
+          >
             <Image
               src="/images/logo/loga.png"
               alt="M. Romza Zikrian Logo"
@@ -52,6 +99,7 @@ export default function Footer() {
                 w-auto
                 max-w-[90px]
                 object-contain
+
                 sm:h-20
                 sm:max-w-[100px]
               "
@@ -61,6 +109,7 @@ export default function Footer() {
           {/* =========================
               COPYRIGHT
           ========================== */}
+
           <div className="w-full">
             <p
               className="
@@ -69,6 +118,7 @@ export default function Footer() {
                 text-xs
                 leading-6
                 text-[#f3f6fa]
+
                 sm:text-sm
               "
             >
@@ -80,14 +130,15 @@ export default function Footer() {
           {/* =========================
               SOCIAL LINKS
           ========================== */}
+
           <div
             className="
               flex
               w-full
               items-center
               justify-center
-              gap-2
-              sm:gap-3
+              gap-3
+
               md:justify-end
             "
           >
@@ -99,28 +150,36 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={social.name}
                 title={social.name}
-                className="
+                className={`
+                  group
                   flex
-                  h-10
-                  w-10
+                  h-11
+                  w-11
                   shrink-0
                   items-center
                   justify-center
                   rounded-xl
                   border
                   border-[#1e334f]
-                  text-[#f3f8fe]
+                  bg-[#0b1628]
                   transition-all
                   duration-300
                   hover:-translate-y-1
-                  hover:border-[#3b82f6]
-                  hover:bg-[#3b82f6]/10
-                  hover:text-[#60a5fa]
-                  sm:h-11
-                  sm:w-11
-                "
+                  ${social.hover}
+                `}
               >
-                {social.icon}
+                <span
+                  className="
+                    flex
+                    items-center
+                    justify-center
+                    transition-transform
+                    duration-300
+                    group-hover:scale-110
+                  "
+                >
+                  {social.icon}
+                </span>
               </a>
             ))}
           </div>
