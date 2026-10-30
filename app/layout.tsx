@@ -5,8 +5,9 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 
 export const metadata: Metadata = {
-  title: "M. Romza Zikrian",
-  description: "Full Stack Web & Mobile Developer | IT Support",
+  title: "M. Romza Zikrian - Web Developer - IT Support - Administration",
+  description:
+    "Portfolio of M. Romza Zikrian, specializing in modern web development, IT support, troubleshooting, administration, data processing, and documentation.",
 };
 
 export const viewport: Viewport = {

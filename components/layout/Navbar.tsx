@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Menu, X, Moon, Sun, Languages } from "lucide-react";
@@ -48,9 +47,6 @@ export default function Navbar() {
   /*
   ==========================================================
   DETEKSI SECTION AKTIF
-
-  Menggunakan posisi section terhadap viewport.
-  Tidak bergantung pada intersectionRatio.
   ==========================================================
   */
 
@@ -104,8 +100,11 @@ export default function Navbar() {
       });
     };
 
-    // Deteksi saat pertama kali halaman dibuka.
-    updateActiveSection();
+    // Deteksi awal secara asynchronous.
+    animationFrame = window.requestAnimationFrame(() => {
+      updateActiveSection();
+      animationFrame = 0;
+    });
 
     // Deteksi saat scroll.
     window.addEventListener("scroll", handleScroll, {
@@ -118,9 +117,9 @@ export default function Navbar() {
     // Deteksi saat hash URL berubah.
     window.addEventListener("hashchange", handleScroll);
 
-    // Beri waktu untuk layout selesai dimuat.
+    // Deteksi ulang setelah layout selesai dimuat.
     const initialTimer = window.setTimeout(() => {
-      updateActiveSection();
+      handleScroll();
     }, 300);
 
     return () => {
@@ -166,15 +165,7 @@ export default function Navbar() {
   const isIndonesian = language === "id";
 
   return (
-    <header
-      className="
-        fixed
-        inset-x-0
-        top-0
-        z-50
-        w-full
-      "
-    >
+    <header className="fixed inset-x-0 top-0 z-50 w-full">
       {/* ==================================================
           NAVBAR CONTAINER
       ================================================== */}
@@ -212,7 +203,7 @@ export default function Navbar() {
           aria-label={isIndonesian ? "Navigasi utama" : "Main navigation"}
         >
           {/* ==============================================
-              LOGO
+              LOGO TEXT PORTFOLIO
           ============================================== */}
 
           <Link
@@ -226,30 +217,22 @@ export default function Navbar() {
               shrink-0
               items-center
               rounded-lg
+              text-xl
+              font-bold
+              text-slate-900
               outline-none
+              transition-opacity
+              hover:opacity-80
               focus-visible:ring-2
               focus-visible:ring-blue-500
+
+              dark:text-white
+
+              sm:text-2xl
             "
-            aria-label="M. Romza Zikrian - Home"
+            aria-label="Portfolio - Home"
           >
-            <Image
-              src="/images/logo/loga.png"
-              alt="M. Romza Zikrian"
-              width={100}
-              height={100}
-              priority
-              className="
-                h-12
-                w-12
-                object-contain
-
-                sm:h-14
-                sm:w-14
-
-                lg:h-16
-                lg:w-16
-              "
-            />
+            Portfolio
           </Link>
 
           {/* ==============================================

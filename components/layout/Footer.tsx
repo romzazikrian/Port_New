@@ -55,7 +55,6 @@ export default function Footer() {
         py-8
         transition-colors
         duration-300
-
         sm:px-6
         sm:py-10
       "
@@ -69,7 +68,6 @@ export default function Footer() {
             justify-center
             gap-6
             text-center
-
             md:grid
             md:grid-cols-3
             md:items-center
@@ -77,10 +75,7 @@ export default function Footer() {
             md:text-left
           "
         >
-          {/* =========================
-              LOGO
-          ========================== */}
-
+          {/* LOGO */}
           <div
             className="
               flex
@@ -90,26 +85,23 @@ export default function Footer() {
             "
           >
             <Image
-              src="/images/logo/loga.png"
+              src="/images/logo/romza.png"
               alt="M. Romza Zikrian Logo"
-              width={100}
-              height={100}
+              width={180}
+              height={180}
+              priority
               className="
-                h-16
+                h-24
                 w-auto
-                max-w-[90px]
+                max-w-[130px]
                 object-contain
-
-                sm:h-20
-                sm:max-w-[100px]
+                sm:h-25
+                sm:max-w-[150px]
               "
             />
           </div>
 
-          {/* =========================
-              COPYRIGHT
-          ========================== */}
-
+          {/* COPYRIGHT */}
           <div className="w-full">
             <p
               className="
@@ -118,7 +110,6 @@ export default function Footer() {
                 text-xs
                 leading-6
                 text-[#f3f6fa]
-
                 sm:text-sm
               "
             >
@@ -127,10 +118,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* =========================
-              SOCIAL LINKS
-          ========================== */}
-
+          {/* SOCIAL LINKS */}
           <div
             className="
               flex
@@ -138,7 +126,6 @@ export default function Footer() {
               items-center
               justify-center
               gap-3
-
               md:justify-end
             "
           >
