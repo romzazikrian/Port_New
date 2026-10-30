@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X, Moon, Sun } from "lucide-react";
+
+import { Menu, X, Moon, Sun, Languages } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useTheme } from "@/context/ThemeContext";
@@ -44,59 +45,125 @@ export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage } = useLanguage();
 
-  /* ========================================================
-     DETEKSI SECTION AKTIF SAAT SCROLL
-  ======================================================== */
+  /*
+  ==========================================================
+  DETEKSI SECTION AKTIF
 
-  useEffect(() => {
-    const sections = navItems
-      .map((item) => document.getElementById(item.id))
-      .filter(Boolean) as HTMLElement[];
+  Menggunakan posisi section terhadap viewport.
+  Tidak bergantung pada intersectionRatio.
+  ==========================================================
+  */
 
-    if (sections.length === 0) return;
+  const updateActiveSection = useCallback(() => {
+    const scrollPosition = window.scrollY;
+    const viewportHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    // Jika sudah mencapai bagian paling bawah halaman,
+    // aktifkan menu Kontak.
+    if (scrollPosition + viewportHeight >= documentHeight - 8) {
+      const lastSection = [...navItems]
+        .reverse()
+        .find((item) => document.getElementById(item.id));
 
-        if (visibleSections.length > 0) {
-          setActiveSection(visibleSections[0].target.id);
-        }
-      },
-      {
-        root: null,
-        rootMargin: "-25% 0px -55% 0px",
-        threshold: [0.1, 0.25, 0.5, 0.75],
-      },
-    );
+      if (lastSection) {
+        setActiveSection(lastSection.id);
+        return;
+      }
+    }
 
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
+    // Garis deteksi berada di bawah navbar.
+    const detectionLine = 150;
 
-    return () => {
-      observer.disconnect();
-    };
+    let currentSection = "";
+
+    for (const item of navItems) {
+      const section = document.getElementById(item.id);
+
+      if (!section) continue;
+
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+
+      if (sectionTop <= scrollPosition + detectionLine) {
+        currentSection = item.id;
+      }
+    }
+
+    setActiveSection(currentSection);
   }, []);
 
-  /* ========================================================
-     CLOSE MOBILE MENU
-  ======================================================== */
+  useEffect(() => {
+    let animationFrame = 0;
 
-  const closeMenu = () => {
-    setIsOpen(false);
-  };
+    const handleScroll = () => {
+      if (animationFrame) return;
 
-  /* ========================================================
-     NAVIGATION CLICK
-  ======================================================== */
+      animationFrame = window.requestAnimationFrame(() => {
+        updateActiveSection();
+        animationFrame = 0;
+      });
+    };
+
+    // Deteksi saat pertama kali halaman dibuka.
+    updateActiveSection();
+
+    // Deteksi saat scroll.
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
+
+    // Deteksi saat ukuran viewport berubah.
+    window.addEventListener("resize", handleScroll);
+
+    // Deteksi saat hash URL berubah.
+    window.addEventListener("hashchange", handleScroll);
+
+    // Beri waktu untuk layout selesai dimuat.
+    const initialTimer = window.setTimeout(() => {
+      updateActiveSection();
+    }, 300);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("hashchange", handleScroll);
+
+      window.clearTimeout(initialTimer);
+
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [updateActiveSection]);
+
+  /*
+  ==========================================================
+  NAVIGATION CLICK
+  ==========================================================
+  */
 
   const handleNavClick = (id: string) => {
     setActiveSection(id);
-    closeMenu();
+    setIsOpen(false);
   };
+
+  /*
+  ==========================================================
+  TOGGLE MOBILE MENU
+  ==========================================================
+  */
+
+  const toggleMenu = () => {
+    setIsOpen((previous) => !previous);
+  };
+
+  /*
+  ==========================================================
+  LANGUAGE LABEL
+  ==========================================================
+  */
+
+  const isIndonesian = language === "id";
 
   return (
     <header
@@ -106,25 +173,22 @@ export default function Navbar() {
         top-0
         z-50
         w-full
-        max-w-full
       "
     >
-      {/* ====================================================
-          NAVBAR
-      ===================================================== */}
+      {/* ==================================================
+          NAVBAR CONTAINER
+      ================================================== */}
 
       <div
         className="
-          w-full
-          max-w-full
           border-b
-          border-slate-200/70
+          border-slate-200/80
           bg-white/90
           backdrop-blur-xl
           transition-colors
           duration-300
 
-          dark:border-[#1e334f]/70
+          dark:border-[#1e334f]/80
           dark:bg-[#07101f]/95
         "
       >
@@ -132,62 +196,65 @@ export default function Navbar() {
           className="
             mx-auto
             flex
-            h-14
+            h-16
             w-full
             max-w-7xl
-            min-w-0
             items-center
             justify-between
+            gap-3
             px-4
 
-            sm:h-16
             sm:px-6
 
             lg:h-[72px]
             lg:px-8
           "
+          aria-label={isIndonesian ? "Navigasi utama" : "Main navigation"}
         >
-          {/* =================================================
+          {/* ==============================================
               LOGO
-          ================================================== */}
+          ============================================== */}
 
           <Link
             href="/"
             onClick={() => {
               setActiveSection("");
-              closeMenu();
+              setIsOpen(false);
             }}
             className="
               flex
-              min-w-0
               shrink-0
               items-center
+              rounded-lg
+              outline-none
+              focus-visible:ring-2
+              focus-visible:ring-blue-500
             "
+            aria-label="M. Romza Zikrian - Home"
           >
             <Image
               src="/images/logo/loga.png"
-              alt="M. Romza Zikrian Logo"
-              width={120}
-              height={120}
+              alt="M. Romza Zikrian"
+              width={100}
+              height={100}
               priority
               className="
-    !h-[70px]
-    !w-[70px]
+                h-12
+                w-12
+                object-contain
 
-    sm:!h-[80px]
-    sm:!w-[80px]
+                sm:h-14
+                sm:w-14
 
-    lg:!h-[100px]
-    lg:!w-[100px]
-
-    object-contain
-  "
+                lg:h-16
+                lg:w-16
+              "
             />
           </Link>
 
-          {/* =================================================
+          {/* ==============================================
               DESKTOP NAVIGATION
-          ================================================== */}
+          ============================================== */}
 
           <div className="hidden items-center gap-1 lg:flex">
             {navItems.map((item) => {
@@ -198,42 +265,48 @@ export default function Navbar() {
                   key={item.id}
                   href={`#${item.id}`}
                   onClick={() => handleNavClick(item.id)}
+                  aria-current={isActive ? "location" : undefined}
                   className="
+                    group
                     relative
+                    isolate
                     rounded-lg
                     px-3
-                    py-2
+                    py-2.5
                     text-sm
                     font-medium
+                    outline-none
                     transition-colors
+                    focus-visible:ring-2
+                    focus-visible:ring-blue-500
                   "
                 >
-                  {/* Active Background */}
+                  {/* ACTIVE BACKGROUND */}
 
                   {isActive && (
                     <motion.span
-                      layoutId="active-navbar"
+                      layoutId="navbar-active-background"
                       className="
                         absolute
                         inset-0
+                        -z-10
                         rounded-lg
                         bg-blue-50
-
                         dark:bg-[#3b82f6]/10
                       "
                       transition={{
                         type: "spring",
-                        stiffness: 400,
-                        damping: 30,
+                        stiffness: 380,
+                        damping: 32,
                       }}
                     />
                   )}
 
-                  {/* Active Line */}
+                  {/* ACTIVE INDICATOR */}
 
                   {isActive && (
                     <motion.span
-                      layoutId="active-navbar-line"
+                      layoutId="navbar-active-indicator"
                       className="
                         absolute
                         bottom-0
@@ -242,13 +315,12 @@ export default function Navbar() {
                         h-0.5
                         rounded-full
                         bg-blue-600
-
                         dark:bg-[#60a5fa]
                       "
                       transition={{
                         type: "spring",
-                        stiffness: 400,
-                        damping: 30,
+                        stiffness: 380,
+                        damping: 32,
                       }}
                     />
                   )}
@@ -264,29 +336,29 @@ export default function Navbar() {
                       ${
                         isActive
                           ? "text-blue-600 dark:text-[#60a5fa]"
-                          : "text-slate-600 hover:text-blue-600 dark:text-[#94a3b8] dark:hover:text-[#60a5fa]"
+                          : "text-slate-600 group-hover:text-blue-600 dark:text-[#94a3b8] dark:group-hover:text-[#60a5fa]"
                       }
                     `}
                   >
-                    {language === "id" ? item.idLabel : item.enLabel}
+                    {isIndonesian ? item.idLabel : item.enLabel}
                   </span>
                 </Link>
               );
             })}
           </div>
 
-          {/* =================================================
+          {/* ==============================================
               DESKTOP ACTIONS
-          ================================================== */}
+          ============================================== */}
 
-          <div className="hidden items-center gap-2 lg:flex">
-            {/* Language */}
+          <div className="hidden shrink-0 items-center gap-2 lg:flex">
+            {/* LANGUAGE */}
 
             <button
               type="button"
               onClick={toggleLanguage}
               className="
-                flex
+                inline-flex
                 h-10
                 items-center
                 gap-2
@@ -297,34 +369,36 @@ export default function Navbar() {
                 text-sm
                 font-medium
                 text-slate-600
-                transition-all
-                duration-200
+                transition-colors
 
                 hover:border-blue-500
                 hover:text-blue-600
 
-                dark:border-[#1e334f]
-                dark:text-[#94a3b8]
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-blue-500
 
-                dark:hover:border-[#3b82f6]
+                dark:border-[#1e334f]
+                dark:text-[#cbd5e1]
+                dark:hover:border-blue-500
                 dark:hover:text-[#60a5fa]
               "
-              aria-label="Ganti bahasa"
+              aria-label={
+                isIndonesian ? "Switch to English" : "Ganti ke bahasa Indonesia"
+              }
             >
-              <span className="text-base">
-                {language === "id" ? "🇮🇩" : "🇬🇧"}
-              </span>
+              <Languages size={16} />
 
-              {language === "id" ? "ID" : "EN"}
+              <span>{isIndonesian ? "ID" : "EN"}</span>
             </button>
 
-            {/* Theme */}
+            {/* THEME */}
 
             <button
               type="button"
               onClick={toggleTheme}
               className="
-                flex
+                inline-flex
                 h-10
                 w-10
                 shrink-0
@@ -334,92 +408,131 @@ export default function Navbar() {
                 border
                 border-slate-200
                 text-slate-600
-                transition-all
-                duration-200
+                transition-colors
 
                 hover:border-blue-500
                 hover:text-blue-600
 
-                dark:border-[#1e334f]
-                dark:text-[#94a3b8]
+                focus-visible:outline-none
+                focus-visible:ring-2
+                focus-visible:ring-blue-500
 
-                dark:hover:border-[#3b82f6]
+                dark:border-[#1e334f]
+                dark:text-[#cbd5e1]
+                dark:hover:border-blue-500
                 dark:hover:text-[#60a5fa]
               "
-              aria-label="Ganti tema"
+              aria-label={
+                theme === "dark"
+                  ? "Aktifkan mode terang"
+                  : "Aktifkan mode gelap"
+              }
             >
-              {theme === "dark" ? (
-                <Sun className="h-4 w-4" />
-              ) : (
-                <Moon className="h-4 w-4" />
-              )}
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{
+                    opacity: 0,
+                    rotate: -45,
+                    scale: 0.7,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    rotate: 0,
+                    scale: 1,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    rotate: 45,
+                    scale: 0.7,
+                  }}
+                  transition={{ duration: 0.15 }}
+                  className="flex"
+                >
+                  {theme === "dark" ? <Sun size={17} /> : <Moon size={17} />}
+                </motion.span>
+              </AnimatePresence>
             </button>
           </div>
 
-          {/* =================================================
-              MOBILE / TABLET HAMBURGER
-          ================================================== */}
+          {/* ==============================================
+              MOBILE MENU BUTTON
+          ============================================== */}
 
           <button
             type="button"
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={toggleMenu}
             className="
               relative
               z-[60]
-
               flex
-              h-11
-              w-11
+              h-10
+              w-10
               shrink-0
               items-center
               justify-center
-
               rounded-xl
-
               border
-              border-slate-300
-
+              border-slate-200
               bg-white
-
               text-slate-800
-
               shadow-sm
-
-              transition-all
-              duration-200
+              transition-colors
 
               hover:border-blue-500
               hover:bg-blue-50
-              hover:text-blue-600
+
+              focus-visible:outline-none
+              focus-visible:ring-2
+              focus-visible:ring-blue-500
 
               dark:border-[#29415f]
               dark:bg-[#0b1628]
               dark:text-[#e2e8f0]
-
               dark:hover:border-[#3b82f6]
               dark:hover:bg-[#10213a]
-              dark:hover:text-[#60a5fa]
 
               lg:hidden
             "
-            aria-label={isOpen ? "Tutup menu" : "Buka menu"}
+            aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
             aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
-            {isOpen ? (
-              <X className="h-5 w-5" strokeWidth={2.2} />
-            ) : (
-              <Menu className="h-5 w-5" strokeWidth={2.2} />
-            )}
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={isOpen ? "close" : "open"}
+                initial={{
+                  opacity: 0,
+                  rotate: -45,
+                  scale: 0.7,
+                }}
+                animate={{
+                  opacity: 1,
+                  rotate: 0,
+                  scale: 1,
+                }}
+                exit={{
+                  opacity: 0,
+                  rotate: 45,
+                  scale: 0.7,
+                }}
+                transition={{ duration: 0.15 }}
+                className="flex"
+              >
+                {isOpen ? <X size={21} /> : <Menu size={21} />}
+              </motion.span>
+            </AnimatePresence>
           </button>
         </nav>
 
-        {/* ==================================================
-            MOBILE MENU
-        =================================================== */}
+        {/* ==============================================
+            MOBILE NAVIGATION
+        ============================================== */}
 
         <AnimatePresence initial={false}>
           {isOpen && (
             <motion.div
+              id="mobile-navigation"
               initial={{
                 opacity: 0,
                 height: 0,
@@ -433,18 +546,16 @@ export default function Navbar() {
                 height: 0,
               }}
               transition={{
-                duration: 0.22,
-                ease: "easeOut",
+                duration: 0.24,
+                ease: [0.22, 1, 0.36, 1],
               }}
               className="
                 overflow-hidden
                 border-t
                 border-slate-200
                 bg-white
-
                 dark:border-[#1e334f]
                 dark:bg-[#07101f]
-
                 lg:hidden
               "
             >
@@ -455,11 +566,10 @@ export default function Navbar() {
                   max-w-7xl
                   px-4
                   py-4
-
                   sm:px-6
                 "
               >
-                {/* Navigation Links */}
+                {/* MOBILE LINKS */}
 
                 <div className="flex flex-col gap-1.5">
                   {navItems.map((item) => {
@@ -470,76 +580,72 @@ export default function Navbar() {
                         key={item.id}
                         href={`#${item.id}`}
                         onClick={() => handleNavClick(item.id)}
+                        aria-current={isActive ? "location" : undefined}
                         className={`
                           relative
                           flex
                           min-h-11
                           w-full
                           items-center
-
+                          overflow-hidden
                           rounded-lg
-
                           px-4
-                          py-2.5
-
+                          py-3
                           text-sm
                           font-medium
-
-                          transition-all
+                          transition-colors
                           duration-200
 
                           ${
                             isActive
                               ? "bg-blue-50 text-blue-600 dark:bg-[#0b1628] dark:text-[#60a5fa]"
-                              : "text-slate-700 hover:bg-slate-100 hover:text-blue-600 dark:text-[#cbd5e1] dark:hover:bg-[#0b1628] dark:hover:text-[#60a5fa]"
+                              : "text-slate-700 hover:bg-slate-100 dark:text-[#cbd5e1] dark:hover:bg-[#0b1628]"
                           }
                         `}
                       >
                         {isActive && (
                           <motion.span
-                            layoutId="mobile-active-navbar"
+                            layoutId="mobile-navbar-active-indicator"
                             className="
                               absolute
+                              bottom-2
                               left-0
-                              top-1/2
-
-                              h-6
+                              top-2
                               w-1
-
-                              -translate-y-1/2
-
-                              rounded-full
-
+                              rounded-r-full
                               bg-blue-600
-
                               dark:bg-[#60a5fa]
                             "
+                            transition={{
+                              type: "spring",
+                              stiffness: 380,
+                              damping: 32,
+                            }}
                           />
                         )}
 
-                        {language === "id" ? item.idLabel : item.enLabel}
+                        <span className="relative z-10">
+                          {isIndonesian ? item.idLabel : item.enLabel}
+                        </span>
                       </Link>
                     );
                   })}
                 </div>
 
-                {/* Mobile Actions */}
+                {/* MOBILE ACTIONS */}
 
                 <div
                   className="
                     mt-4
                     flex
                     gap-2
-
                     border-t
                     border-slate-200
-
                     pt-4
-
                     dark:border-[#1e334f]
                   "
                 >
-                  {/* Language */}
+                  {/* LANGUAGE */}
 
                   <button
                     type="button"
@@ -551,37 +657,30 @@ export default function Navbar() {
                       items-center
                       justify-center
                       gap-2
-
                       rounded-lg
-
                       border
                       border-slate-200
-
                       px-3
-
                       text-sm
                       font-medium
-
                       text-slate-700
-
-                      transition-all
+                      transition-colors
 
                       hover:border-blue-500
                       hover:text-blue-600
 
                       dark:border-[#1e334f]
                       dark:text-[#cbd5e1]
-
-                      dark:hover:border-[#3b82f6]
+                      dark:hover:border-blue-500
                       dark:hover:text-[#60a5fa]
                     "
                   >
-                    <span>{language === "id" ? "🇮🇩" : "🇬🇧"}</span>
+                    <Languages size={16} />
 
-                    {language === "id" ? "Indonesia" : "English"}
+                    {isIndonesian ? "Indonesia" : "English"}
                   </button>
 
-                  {/* Theme */}
+                  {/* THEME */}
 
                   <button
                     type="button"
@@ -589,29 +688,32 @@ export default function Navbar() {
                     className="
                       flex
                       min-h-11
-                      w-11
+                      w-12
                       shrink-0
                       items-center
                       justify-center
-
                       rounded-lg
-
                       border
                       border-slate-200
-
-                      transition-all
+                      text-slate-700
+                      transition-colors
 
                       hover:border-blue-500
 
                       dark:border-[#1e334f]
-                      dark:hover:border-[#3b82f6]
+                      dark:text-[#cbd5e1]
+                      dark:hover:border-blue-500
                     "
-                    aria-label="Ganti tema"
+                    aria-label={
+                      theme === "dark"
+                        ? "Aktifkan mode terang"
+                        : "Aktifkan mode gelap"
+                    }
                   >
                     {theme === "dark" ? (
-                      <Sun className="h-4 w-4 text-yellow-400" />
+                      <Sun size={17} className="text-amber-400" />
                     ) : (
-                      <Moon className="h-4 w-4 text-slate-700" />
+                      <Moon size={17} />
                     )}
                   </button>
                 </div>

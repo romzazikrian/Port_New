@@ -39,14 +39,14 @@ export default function About() {
           >
             <p className="text-lg leading-8 text-slate-700 dark:text-[#b5c2d3]">
               {isEnglish
-                ? "I am a Bachelor of Informatics graduate from Universitas Teknokrat Indonesia with experience in website development and IT Support. I am skilled in building modern, responsive digital solutions tailored to user needs."
-                : "Saya merupakan lulusan S1 Informatika Universitas Teknokrat Indonesia dengan pengalaman dalam pengembangan website dan IT Support. Saya memiliki kemampuan dalam membangun solusi digital yang modern, responsif, dan disesuaikan dengan kebutuhan pengguna."}
+                ? "I am a Bachelor of Informatics graduate from Universitas Teknokrat Indonesia with experience in website development using Next.js, Laravel, Vue.js, and Astro, as well as IT support and troubleshooting. I am able to build responsive digital solutions that meet user needs."
+                : "Saya merupakan lulusan S1 Informatika Universitas Teknokrat Indonesia dengan pengalaman dalam pengembangan website menggunakan Next.js, Laravel, Vue.js, dan Astro, serta IT Support dan troubleshooting. Saya mampu membangun solusi digital yang responsif dan sesuai dengan kebutuhan pengguna."}
             </p>
 
             <p className="mt-6 text-lg leading-8 text-slate-700 dark:text-[#b5c2d3]">
               {isEnglish
-                ? "Beyond my technical expertise in information technology, I also have skills in administration, data processing, and Microsoft Office. I am experienced in preparing documentation and reports systematically, collaborating effectively within teams, and supporting day-to-day operations. I bring strong communication, time management, attention to detail, adaptability, and a sense of responsibility to every task."
-                : "Selain memiliki kompetensi teknis di bidang teknologi informasi, saya juga memiliki keterampilan dalam administrasi, pengolahan data, dan penggunaan Microsoft Office. Terbiasa menyusun dokumentasi dan laporan secara sistematis, bekerja secara efektif dalam tim, serta mendukung kelancaran operasional. Saya mengutamakan komunikasi yang baik, manajemen waktu, ketelitian, kemampuan beradaptasi, dan tanggung jawab dalam menyelesaikan setiap tugas."}
+                ? "In addition to my technical skills in information technology, I have skills in administration, data processing, and Microsoft Office. I am accustomed to preparing documentation and reports systematically, working collaboratively in teams, and supporting smooth operations. I value good communication, time management, attention to detail, adaptability, and responsibility in completing every task."
+                : "Selain kompetensi teknis di bidang teknologi informasi, saya memiliki keterampilan dalam administrasi, pengolahan data, dan penggunaan Microsoft Office. Saya terbiasa menyusun dokumentasi dan laporan secara sistematis, bekerja sama dalam tim, serta mendukung kelancaran operasional. Saya mengutamakan komunikasi yang baik, manajemen waktu, ketelitian, adaptabilitas, dan tanggung jawab dalam menyelesaikan setiap tugas."}
             </p>
           </motion.div>
 

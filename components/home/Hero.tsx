@@ -28,59 +28,65 @@ const skills = [
   {
     name: "Web Developer",
     icon: Globe2,
+    color: "text-teal-600 dark:text-teal-400",
   },
   {
     name: "Next.js",
     icon: SiNextdotjs,
+    color: "text-slate-900 dark:text-white",
   },
   {
     name: "Astro",
     icon: SiAstro,
+    color: "text-orange-500 dark:text-orange-400",
   },
   {
     name: "Vue.js",
     icon: SiVuedotjs,
+    color: "text-emerald-600 dark:text-emerald-400",
   },
   {
     name: "Laravel",
     icon: SiLaravel,
+    color: "text-red-600 dark:text-red-400",
   },
   {
     name: "CodeIgniter",
     icon: SiCodeigniter,
+    color: "text-orange-600 dark:text-orange-400",
   },
 ];
-
-/* =========================================================
-   IT SUPPORT SKILLS
-========================================================= */
 
 const itSupportSkills = [
   {
     name: "Hardware Troubleshooting",
     icon: Computer,
+    color: "text-emerald-600 dark:text-emerald-400",
   },
   {
     name: "Software Troubleshooting",
     icon: MonitorCog,
+    color: "text-amber-500 dark:text-amber-400",
   },
   {
     name: "Computer Maintenance",
     icon: Wrench,
+    color: "text-cyan-600 dark:text-cyan-400",
   },
   {
     name: "Technical Problem Solving",
     icon: BrainCircuit,
+    color: "text-violet-600 dark:text-violet-400",
   },
   {
     name: "IT Support",
     icon: Computer,
+    color: "text-sky-600 dark:text-sky-400",
   },
 ];
 
 export default function Hero() {
   const { language } = useLanguage();
-
   const isEnglish = language === "en";
 
   return (
@@ -88,95 +94,91 @@ export default function Hero() {
       id="home"
       className="
         relative
+        isolate
         w-full
-        max-w-full
         overflow-hidden
         border-b
         border-slate-200
         bg-white
         transition-colors
         duration-300
-
         dark:border-[#1e334f]
-        dark:bg-[#07101f]
+        dark:bg-[#0b1220]
       "
     >
-      {/* =====================================================
+      {/* =========================================
           GRID BACKGROUND
-      ====================================================== */}
-
-      <div className="pointer-events-none absolute inset-0 grid-background opacity-40 dark:opacity-100" />
-
-      {/* =====================================================
-          BLUE GLOW
-      ====================================================== */}
+      ========================================= */}
 
       <div
+        aria-hidden="true"
         className="
+          grid-background
           pointer-events-none
           absolute
-          left-1/4
-          top-40
-          h-72
-          w-72
-          max-w-[70vw]
-          rounded-full
-          bg-blue-500/10
-          blur-[120px]
+          inset-0
+          z-[-2]
         "
       />
 
-      {/* =====================================================
+      {/* =========================================
+          BACKGROUND GLOW
+      ========================================= */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          right-[15%]
+          top-24
+          z-[-1]
+          h-72
+          w-72
+          rounded-full
+          bg-blue-500/10
+          blur-[110px]
+        "
+      />
+
+      {/* =========================================
           HERO CONTENT
-      ====================================================== */}
+      ========================================= */}
 
       <div
         className="
           relative
           mx-auto
           grid
-          min-h-screen
+          min-h-[calc(100svh-5.5rem)]
           w-full
           max-w-7xl
-          min-w-0
+          grid-cols-1
           items-center
           gap-12
-          overflow-hidden
-          px-4
-          pb-20
-          pt-24
-
-          sm:px-6
-
-          lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]
-          lg:px-8
-          lg:pt-22
+          px-5
+          pb-16
+          pt-28
+          sm:px-8
+          lg:grid-cols-[minmax(0,1.25fr)_minmax(280px,0.75fr)]
+          lg:gap-16
+          lg:px-10
+          lg:pb-20
+          lg:pt-24
+          xl:gap-20
         "
       >
-        {/* ===================================================
+        {/* =========================================
             LEFT CONTENT
-        ==================================================== */}
+        ========================================= */}
 
         <motion.div
-          initial={{
-            opacity: 0,
-            y: 30,
-          }}
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 0.7,
-          }}
-          className="
-            min-w-0
-            w-full
-          "
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="relative z-10 min-w-0 w-full"
         >
-          {/* =================================================
-              BADGE
-          ================================================== */}
+          {/* STATUS BADGE */}
 
           <div
             className="
@@ -188,16 +190,16 @@ export default function Hero() {
               rounded-full
               border
               border-slate-200
-              bg-slate-50/80
+              bg-white/70
               px-4
-              py-2
+              py-2.5
               text-sm
               text-slate-600
-              backdrop-blur
-
-              dark:border-[#1e334f]
-              dark:bg-[#0b1628]/80
-              dark:text-[#aebdd0]
+              shadow-sm
+              backdrop-blur-md
+              dark:border-[#29384d]
+              dark:bg-[#111c2d]/80
+              dark:text-[#b4c1d3]
             "
           >
             <span
@@ -207,16 +209,18 @@ export default function Hero() {
                 shrink-0
                 rounded-full
                 bg-emerald-500
-                shadow-[0_0_10px_#34d399]
+                shadow-[0_0_10px_rgba(16,185,129,0.6)]
               "
             />
 
-            <span className="min-w-0">Web Developer | IT Support</span>
+            <span>
+              {isEnglish
+                ? "Web Developer | IT Support | Administrasi"
+                : "Web Developer | IT Support | Administration"}
+            </span>
           </div>
 
-          {/* =================================================
-              NAME
-          ================================================== */}
+          {/* NAME */}
 
           <h1
             className="
@@ -224,179 +228,141 @@ export default function Hero() {
               break-words
               text-5xl
               font-semibold
-              leading-[0.95]
-              tracking-[-0.04em]
+              leading-[0.98]
+              tracking-[-0.055em]
               text-slate-900
-
               sm:text-6xl
-
-              lg:text-7xl
-
-              xl:text-[82px]
-
-              dark:text-[#e8f0fa]
+              lg:text-6xl
+              xl:text-[76px]
+              dark:text-[#e5ebf5]
             "
           >
             M. Romza{" "}
-            <span className="text-slate-500 dark:text-[#9eb3cf]">Zikrian.</span>
+            <span className="text-slate-500 dark:text-[#a7b5c9]">Zikrian.</span>
           </h1>
 
-          {/* =================================================
-              PROFESSION
-          ================================================== */}
+          {/* PROFESSION */}
 
           <h2
             className="
               mt-7
-              max-w-full
               text-xl
               font-medium
               leading-relaxed
               text-slate-700
-
               sm:text-2xl
-
-              dark:text-[#b9c7d9]
+              dark:text-[#c0cddd]
             "
           >
-            Web Developer{" "}
-            <span className="text-blue-600 dark:text-[#3b82f6]">|</span> IT
-            Support
+            {isEnglish
+              ? "Web Developer | IT Support | Administration"
+              : "Web Developer | IT Support | Administrasi"}
           </h2>
 
-          {/* =================================================
-              DESCRIPTION
-          ================================================== */}
+          {/* DESCRIPTION */}
 
           <p
             className="
-              mt-6
+              mt-5
               max-w-2xl
               text-base
               leading-8
               text-slate-600
-
               sm:text-lg
-
-              dark:text-[#94a3b8]
+              dark:text-[#9caabe]
             "
           >
             {isEnglish
-              ? "I focus on developing modern, responsive websites and digital solutions tailored to user needs. I also have experience in IT Support, administration, data processing, and documentation, with a detail-oriented, adaptable, and solution-driven approach."
-              : "Berfokus pada pengembangan website dan solusi digital yang modern, responsif, serta disesuaikan dengan kebutuhan pengguna. Berpengalaman dalam IT Support, administrasi, pengolahan data, dan dokumentasi, dengan pendekatan kerja yang teliti, adaptif, dan berorientasi pada solusi."}
+              ? "I focus on developing modern, responsive websites and digital solutions tailored to user needs. I also have experience in IT support, troubleshooting, administration, data processing, documentation, and Microsoft Office."
+              : "Berfokus pada pengembangan website dan solusi digital yang modern, responsif, serta disesuaikan dengan kebutuhan pengguna. Berpengalaman dalam IT Support, troubleshooting, administrasi, pengolahan data, dokumentasi, dan Microsoft Office."}
           </p>
 
-          {/* =================================================
-              BUTTONS
-          ================================================== */}
+          {/* BUTTONS */}
 
-          <div
-            className="
-              mt-9
-              flex
-              w-full
-              max-w-full
-              flex-wrap
-              gap-4
-            "
-          >
-            {/* Project */}
-
+          <div className="mt-8 flex flex-wrap gap-3.5">
             <a
               href="#projects"
               className="
                 group
-                flex
+                inline-flex
                 items-center
                 gap-3
                 rounded-lg
                 bg-blue-600
-                px-6
+                px-5
                 py-4
+                text-sm
                 font-semibold
                 text-white
                 transition
-
                 hover:bg-blue-700
-
-                dark:bg-[#3b82f6]
-                dark:hover:bg-[#2563eb]
+                sm:px-6
+                dark:bg-[#4f78ff]
+                dark:hover:bg-[#4169ed]
               "
             >
-              {isEnglish ? "View Projects" : "Lihat Project"}
+              {isEnglish ? "Explore My Projects" : "Jelajahi karya saya"}
 
               <ArrowDown
                 size={18}
-                className="
-                  transition-transform
-                  group-hover:translate-y-1
-                "
+                className="transition-transform group-hover:translate-y-1"
               />
             </a>
-
-            {/* CV */}
 
             <a
               href="/cv/CV_M Romza Zikrian.pdf"
               download
               className="
-                flex
+                inline-flex
                 items-center
                 gap-3
                 rounded-lg
                 border
-                border-slate-200
-                bg-white
-                px-6
+                border-slate-300
+                bg-white/60
+                px-5
                 py-4
+                text-sm
                 font-semibold
                 text-slate-700
                 transition
-
                 hover:border-blue-500
-                hover:bg-slate-50
                 hover:text-blue-600
-
-                dark:border-[#1e334f]
-                dark:bg-transparent
-                dark:text-[#cbd5e1]
-                dark:hover:border-[#3b82f6]
-                dark:hover:bg-[#0b1628]
-                dark:hover:text-white
+                sm:px-6
+                dark:border-[#34445c]
+                dark:bg-[#0b1220]/70
+                dark:text-[#c5d0e0]
+                dark:hover:border-blue-500
+                dark:hover:text-blue-400
               "
             >
-              {isEnglish ? "Download CV" : "Download CV"}
+              {isEnglish ? "Download CV" : "Unduh CV"}
 
               <Download size={18} />
             </a>
           </div>
 
-          {/* =================================================
-              TECHNOLOGIES
-          ================================================== */}
+          {/* TECHNOLOGY TAGS */}
 
           <div
             className="
-              mt-14
-              w-full
-              max-w-full
+              mt-12
+              max-w-2xl
               border-t
               border-slate-200
-              pt-7
-
-              dark:border-[#1e334f]
+              pt-6
+              dark:border-[#29384d]
             "
           >
             <p
               className="
                 mb-4
-                text-xs
-                font-medium
+                text-[10px]
+                font-semibold
                 uppercase
                 tracking-[0.2em]
-                text-slate-400
-
-                dark:text-[#64748b]
+                text-slate-500
+                dark:text-[#8292aa]
               "
             >
               {isEnglish
@@ -404,134 +370,202 @@ export default function Hero() {
                 : "Teknologi yang Saya Gunakan"}
             </p>
 
-            <div
-              className="
-                flex
-                max-w-full
-                flex-wrap
-                gap-2
-              "
-            >
-              {[, "Next.js", "Laravel", "Vue.js", "Astro", "CodeIgniter"].map(
-                (skill) => (
-                  <span
-                    key={skill}
-                    className="
-                    rounded-md
-                    border
-                    border-slate-200
-                    bg-slate-50
-                    px-3
-                    py-2
-                    text-sm
-                    text-slate-600
-                    transition-colors
+            <div className="flex flex-wrap gap-2">
+              {skills.slice(1).map((skill) => {
+                const Icon = skill.icon;
 
-                    dark:border-[#1e334f]
-                    dark:bg-[#0b1628]/80
-                    dark:text-[#aebdd0]
-                  "
+                return (
+                  <span
+                    key={skill.name}
+                    className="
+                      inline-flex
+                      items-center
+                      gap-2
+                      rounded-md
+                      border
+                      border-slate-200
+                      bg-white/60
+                      px-3
+                      py-2
+                      text-xs
+                      font-medium
+                      text-slate-700
+                      transition-colors
+                      dark:border-[#29384d]
+                      dark:bg-[#111c2d]/70
+                      dark:text-[#b7c5d8]
+                    "
                   >
-                    {skill}
+                    <Icon className={`h-3.5 w-3.5 ${skill.color}`} />
+                    {skill.name}
                   </span>
-                ),
-              )}
+                );
+              })}
             </div>
           </div>
         </motion.div>
 
-        {/* ===================================================
-            RIGHT CONTENT
-        ==================================================== */}
+        {/* =========================================
+            RIGHT CONTENT: DECORATIVE LINES + PHOTO
+        ========================================= */}
 
         <motion.div
-          initial={{
-            opacity: 0,
-            x: 40,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.8,
-            delay: 0.15,
-          }}
+          initial={{ opacity: 0, x: 35 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
           className="
             relative
             mx-auto
+            flex
             w-full
-            max-w-xl
+            max-w-[390px]
             min-w-0
+            items-center
+            justify-center
+            lg:max-w-[360px]
+            xl:max-w-[390px]
           "
         >
-          {/* =================================================
-              OUTER CARD
-          ================================================== */}
+          {/* DECORATIVE CURVED LINES */}
+
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 500 680"
+            fill="none"
+            className="
+              pointer-events-none
+              absolute
+              -left-20
+              top-1/2
+              z-0
+              hidden
+              h-[125%]
+              w-[135%]
+              -translate-y-1/2
+              overflow-visible
+              lg:block
+            "
+          >
+            <path
+              d="
+                M 285 -20
+                C 255 15, 250 30, 275 65
+                C 310 110, 360 115, 390 145
+                C 420 170, 450 165, 475 185
+                C 505 210, 520 235, 545 255
+                C 570 280, 585 300, 580 345
+                C 575 395, 555 440, 525 475
+                C 495 510, 450 555, 410 570
+                C 370 585, 320 560, 275 535
+                C 225 510, 175 475, 140 435
+                C 100 390, 90 345, 85 300
+                C 80 255, 65 205, 65 155
+                C 65 115, 80 100, 110 85
+              "
+              stroke="currentColor"
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              className="text-blue-400/40 dark:text-blue-400/35"
+            />
+
+            <path
+              d="
+                M 285 -20
+                C 255 15, 250 30, 275 65
+                C 310 110, 360 115, 390 145
+              "
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              className="text-indigo-500/50 dark:text-indigo-400/50"
+            />
+
+            <circle
+              cx="110"
+              cy="85"
+              r="4"
+              fill="currentColor"
+              className="text-blue-500 dark:text-blue-400"
+            />
+          </svg>
+
+          {/* PHOTO CARD */}
 
           <div
             className="
+              relative
+              z-10
               w-full
-              max-w-full
-              rounded-[28px]
+              rounded-[27px]
               border
               border-slate-200
-              bg-slate-50/80
-              p-3
-              shadow-2xl
-              backdrop-blur
-              transition-colors
-
-              dark:border-[#1e334f]
-              dark:bg-[#0b1628]/80
+              bg-slate-100/90
+              p-2
+              shadow-[0_20px_70px_rgba(15,23,42,0.12)]
+              backdrop-blur-xl
+              dark:border-[#1c293b]
+              dark:bg-[#131d2c]
+              dark:shadow-[0_20px_80px_rgba(0,0,0,0.3)]
             "
           >
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl">
+            <div
+              className="
+                relative
+                aspect-[4/5]
+                w-full
+                overflow-hidden
+                rounded-[20px]
+                bg-slate-200
+                dark:bg-[#0b1220]
+              "
+            >
               <Image
                 src="/images/foto/romza.jpg"
                 alt="M. Romza Zikrian"
                 fill
-                className="object-cover"
+                priority
+                sizes="(max-width: 1023px) 85vw, 390px"
+                className="object-cover object-center"
               />
-              {/* Image Gradient */}
+
+              {/* PHOTO OVERLAY */}
 
               <div
                 className="
                   absolute
                   inset-0
                   bg-gradient-to-t
-                  from-black/50
+                  from-black/60
                   via-transparent
-                  to-transparent
-
-                  dark:from-[#07101f]
-                  dark:via-transparent
-                  dark:to-transparent
+                  to-black/5
                 "
               />
 
-              {/* Location */}
+              {/* LOCATION */}
 
               <div
                 className="
                   absolute
-                  bottom-5
-                  left-5
+                  bottom-3
+                  left-3
+                  right-3
                   flex
-                  max-w-[calc(100%-2.5rem)]
                   items-center
                   gap-2
-                  rounded-lg
-                  bg-black/50
-                  px-4
-                  py-3
-                  text-sm
-                  font-medium
+                  rounded-xl
+                  border
+                  border-white/10
+                  bg-black/40
+                  px-3
+                  py-2.5
+                  text-xs
+                  font-semibold
                   text-white
                   backdrop-blur-md
+                  sm:text-sm
                 "
               >
-                <MapPin size={17} className="shrink-0" />
+                <MapPin size={16} className="shrink-0" />
 
                 <span className="truncate">Lampung, Indonesia</span>
               </div>
@@ -540,31 +574,25 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* =====================================================
-          FIRST MARQUEE
-          WEB & MOBILE
-      ====================================================== */}
+      {/* =========================================
+          FIRST MARQUEE: WEB DEVELOPMENT
+      ========================================= */}
 
       <div
         className="
           relative
           w-full
-          max-w-full
           overflow-hidden
           border-t
           border-slate-200
           bg-slate-50/70
           py-5
-          transition-colors
-          duration-300
-
-          dark:border-[#1e334f]
-          dark:bg-[#07101f]
+          dark:border-[#29384d]
+          dark:bg-[#0b1220]
         "
       >
-        {/* LEFT FADE */}
-
         <div
+          aria-hidden="true"
           className="
             pointer-events-none
             absolute
@@ -572,19 +600,16 @@ export default function Hero() {
             top-0
             z-10
             h-full
-            w-20
-
+            w-16
             bg-gradient-to-r
             from-slate-50
             to-transparent
-
-            dark:from-[#07101f]
+            dark:from-[#0b1220]
           "
         />
 
-        {/* RIGHT FADE */}
-
         <div
+          aria-hidden="true"
           className="
             pointer-events-none
             absolute
@@ -592,29 +617,17 @@ export default function Hero() {
             top-0
             z-10
             h-full
-            w-20
-
+            w-16
             bg-gradient-to-l
             from-slate-50
             to-transparent
-
-            dark:from-[#07101f]
+            dark:from-[#0b1220]
           "
         />
 
-        {/* MOVING WEB & MOBILE SKILLS */}
-
         <motion.div
-          className="
-            flex
-            w-max
-            max-w-none
-            items-center
-            gap-8
-          "
-          animate={{
-            x: ["0%", "-50%"],
-          }}
+          className="flex w-max items-center gap-8"
+          animate={{ x: ["0%", "-50%"] }}
           transition={{
             x: {
               duration: 30,
@@ -638,66 +651,39 @@ export default function Hero() {
                   text-sm
                   font-medium
                   text-slate-600
-
-                  dark:text-[#aebdd0]
+                  dark:text-[#b7c5d8]
                 "
               >
-                <Icon
-                  className="
-                    h-5
-                    w-5
-                    shrink-0
-                    text-blue-600
-
-                    dark:text-[#60a5fa]
-                  "
-                />
+                <Icon className={`h-5 w-5 shrink-0 ${skill.color}`} />
 
                 <span>{skill.name}</span>
 
-                <span
-                  className="
-                    ml-5
-                    h-1.5
-                    w-1.5
-                    shrink-0
-                    rounded-full
-                    bg-slate-300
-
-                    dark:bg-[#334155]
-                  "
-                />
+                <span className="ml-5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300 dark:bg-[#34445c]" />
               </div>
             );
           })}
         </motion.div>
       </div>
 
-      {/* =====================================================
-          SECOND MARQUEE
-          IT SUPPORT
-      ====================================================== */}
+      {/* =========================================
+          SECOND MARQUEE: IT SUPPORT
+      ========================================= */}
 
       <div
         className="
           relative
           w-full
-          max-w-full
           overflow-hidden
           border-t
           border-slate-200
           bg-white
           py-5
-          transition-colors
-          duration-300
-
-          dark:border-[#1e334f]
-          dark:bg-[#07101f]
+          dark:border-[#29384d]
+          dark:bg-[#0b1220]
         "
       >
-        {/* LEFT FADE */}
-
         <div
+          aria-hidden="true"
           className="
             pointer-events-none
             absolute
@@ -705,19 +691,16 @@ export default function Hero() {
             top-0
             z-10
             h-full
-            w-20
-
+            w-16
             bg-gradient-to-r
             from-white
             to-transparent
-
-            dark:from-[#07101f]
+            dark:from-[#0b1220]
           "
         />
 
-        {/* RIGHT FADE */}
-
         <div
+          aria-hidden="true"
           className="
             pointer-events-none
             absolute
@@ -725,29 +708,17 @@ export default function Hero() {
             top-0
             z-10
             h-full
-            w-20
-
+            w-16
             bg-gradient-to-l
             from-white
             to-transparent
-
-            dark:from-[#07101f]
+            dark:from-[#0b1220]
           "
         />
 
-        {/* MOVING IT SUPPORT SKILLS */}
-
         <motion.div
-          className="
-            flex
-            w-max
-            max-w-none
-            items-center
-            gap-8
-          "
-          animate={{
-            x: ["-50%", "0%"],
-          }}
+          className="flex w-max items-center gap-8"
+          animate={{ x: ["-50%", "0%"] }}
           transition={{
             x: {
               duration: 28,
@@ -772,35 +743,14 @@ export default function Hero() {
                   text-sm
                   font-medium
                   text-slate-600
-
-                  dark:text-[#aebdd0]
+                  dark:text-[#b7c5d8]
                 "
                 >
-                  <Icon
-                    className="
-                    h-5
-                    w-5
-                    shrink-0
-                    text-blue-600
-
-                    dark:text-[#60a5fa]
-                  "
-                  />
+                  <Icon className={`h-5 w-5 shrink-0 ${skill.color}`} />
 
                   <span>{skill.name}</span>
 
-                  <span
-                    className="
-                    ml-5
-                    h-1.5
-                    w-1.5
-                    shrink-0
-                    rounded-full
-                    bg-slate-300
-
-                    dark:bg-[#334155]
-                  "
-                  />
+                  <span className="ml-5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300 dark:bg-[#34445c]" />
                 </div>
               );
             },
