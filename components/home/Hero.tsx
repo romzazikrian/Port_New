@@ -310,7 +310,7 @@ export default function Hero() {
             </a>
 
             <a
-              href="/cv/CV_M Romza Zikrian.pdf"
+              href="/cv/Curriculum Vitae (CV).pdf"
               download
               className="
                 inline-flex
