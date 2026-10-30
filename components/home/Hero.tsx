@@ -215,8 +215,8 @@ export default function Hero() {
 
             <span>
               {isEnglish
-                ? "Web Developer | IT Support | Administrasi"
-                : "Web Developer | IT Support | Administration"}
+                ? "Web Developer | IT Support | Administration"
+                : "Web Developer | IT Support | Administrasi"}
             </span>
           </div>
 
