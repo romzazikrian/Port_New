@@ -110,7 +110,8 @@ export default function About() {
 
                   <p className="mt-1 whitespace-nowrap text-slate-900 dark:text-[#e8f0fa]">
                     <span className="font-semibold">Web Developer</span>
-                    <span className="font-normal"> | IT Support</span>
+                    <span className="font-semibold"> | IT Support</span>
+                    <span className="font-semibold"> | Administration</span>
                   </p>
                 </div>
               </div>
