@@ -575,56 +575,59 @@ export default function Hero() {
       </div>
 
       {/* =========================================
-          FIRST MARQUEE: WEB DEVELOPMENT
-      ========================================= */}
+    FIRST MARQUEE: DEVELOPMENT SKILLS
+========================================= */}
 
       <div
         className="
-          relative
-          w-full
-          overflow-hidden
-          border-t
-          border-slate-200
-          bg-slate-50/70
-          py-5
-          dark:border-[#29384d]
-          dark:bg-[#0b1220]
-        "
+    relative
+    w-full
+    overflow-hidden
+    border-t
+    border-slate-200
+    bg-slate-50/70
+    py-5
+    dark:border-[#29384d]
+    dark:bg-[#0b1220]
+  "
       >
+        {/* Left Gradient */}
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            left-0
-            top-0
-            z-10
-            h-full
-            w-16
-            bg-gradient-to-r
-            from-slate-50
-            to-transparent
-            dark:from-[#0b1220]
-          "
+      pointer-events-none
+      absolute
+      left-0
+      top-0
+      z-10
+      h-full
+      w-16
+      bg-gradient-to-r
+      from-slate-50
+      to-transparent
+      dark:from-[#0b1220]
+    "
         />
 
+        {/* Right Gradient */}
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            right-0
-            top-0
-            z-10
-            h-full
-            w-16
-            bg-gradient-to-l
-            from-slate-50
-            to-transparent
-            dark:from-[#0b1220]
-          "
+      pointer-events-none
+      absolute
+      right-0
+      top-0
+      z-10
+      h-full
+      w-16
+      bg-gradient-to-l
+      from-slate-50
+      to-transparent
+      dark:from-[#0b1220]
+    "
         />
 
+        {/* Skills Animation */}
         <motion.div
           className="flex w-max items-center gap-8"
           animate={{ x: ["0%", "-50%"] }}
@@ -643,22 +646,35 @@ export default function Hero() {
               <div
                 key={`${skill.name}-${index}`}
                 className="
-                  flex
-                  shrink-0
-                  items-center
-                  gap-3
-                  whitespace-nowrap
-                  text-sm
-                  font-medium
-                  text-slate-600
-                  dark:text-[#b7c5d8]
-                "
+            flex
+            shrink-0
+            items-center
+            gap-3
+            whitespace-nowrap
+            text-sm
+            font-medium
+            text-slate-600
+            sm:text-base
+            dark:text-[#b7c5d8]
+          "
               >
-                <Icon className={`h-5 w-5 shrink-0 ${skill.color}`} />
+                <Icon
+                  className={`h-6 w-6 shrink-0 sm:h-[26px] sm:w-[26px] ${skill.color}`}
+                />
 
                 <span>{skill.name}</span>
 
-                <span className="ml-5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300 dark:bg-[#34445c]" />
+                <span
+                  className="
+              ml-5
+              h-1.5
+              w-1.5
+              shrink-0
+              rounded-full
+              bg-slate-300
+              dark:bg-[#34445c]
+            "
+                />
               </div>
             );
           })}
@@ -666,56 +682,59 @@ export default function Hero() {
       </div>
 
       {/* =========================================
-          SECOND MARQUEE: IT SUPPORT
-      ========================================= */}
+    SECOND MARQUEE: IT SUPPORT
+========================================= */}
 
       <div
         className="
-          relative
-          w-full
-          overflow-hidden
-          border-t
-          border-slate-200
-          bg-white
-          py-5
-          dark:border-[#29384d]
-          dark:bg-[#0b1220]
-        "
+    relative
+    w-full
+    overflow-hidden
+    border-t
+    border-slate-200
+    bg-white
+    py-5
+    dark:border-[#29384d]
+    dark:bg-[#0b1220]
+  "
       >
+        {/* Left Gradient */}
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            left-0
-            top-0
-            z-10
-            h-full
-            w-16
-            bg-gradient-to-r
-            from-white
-            to-transparent
-            dark:from-[#0b1220]
-          "
+      pointer-events-none
+      absolute
+      left-0
+      top-0
+      z-10
+      h-full
+      w-16
+      bg-gradient-to-r
+      from-white
+      to-transparent
+      dark:from-[#0b1220]
+    "
         />
 
+        {/* Right Gradient */}
         <div
           aria-hidden="true"
           className="
-            pointer-events-none
-            absolute
-            right-0
-            top-0
-            z-10
-            h-full
-            w-16
-            bg-gradient-to-l
-            from-white
-            to-transparent
-            dark:from-[#0b1220]
-          "
+      pointer-events-none
+      absolute
+      right-0
+      top-0
+      z-10
+      h-full
+      w-16
+      bg-gradient-to-l
+      from-white
+      to-transparent
+      dark:from-[#0b1220]
+    "
         />
 
+        {/* IT Support Animation */}
         <motion.div
           className="flex w-max items-center gap-8"
           animate={{ x: ["-50%", "0%"] }}
@@ -735,22 +754,35 @@ export default function Hero() {
                 <div
                   key={`${skill.name}-${index}`}
                   className="
-                  flex
-                  shrink-0
-                  items-center
-                  gap-3
-                  whitespace-nowrap
-                  text-sm
-                  font-medium
-                  text-slate-600
-                  dark:text-[#b7c5d8]
-                "
+              flex
+              shrink-0
+              items-center
+              gap-3
+              whitespace-nowrap
+              text-sm
+              font-medium
+              text-slate-600
+              sm:text-base
+              dark:text-[#b7c5d8]
+            "
                 >
-                  <Icon className={`h-5 w-5 shrink-0 ${skill.color}`} />
+                  <Icon
+                    className={`h-6 w-6 shrink-0 sm:h-[26px] sm:w-[26px] ${skill.color}`}
+                  />
 
                   <span>{skill.name}</span>
 
-                  <span className="ml-5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300 dark:bg-[#34445c]" />
+                  <span
+                    className="
+                ml-5
+                h-1.5
+                w-1.5
+                shrink-0
+                rounded-full
+                bg-slate-300
+                dark:bg-[#34445c]
+              "
+                  />
                 </div>
               );
             },
