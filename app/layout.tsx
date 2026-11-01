@@ -3,6 +3,7 @@ import "./globals.css";
 
 import { ThemeProvider } from "@/context/ThemeContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import SplashScreen from "@/components/home/SplashScreen";
 
 export const metadata: Metadata = {
   title: "M. Romza Zikrian - Web Developer - IT Support - Administration",
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="id" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <LanguageProvider>{children}</LanguageProvider>
+          <LanguageProvider>
+            <SplashScreen />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>
