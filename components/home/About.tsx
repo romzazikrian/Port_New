@@ -39,14 +39,8 @@ export default function About() {
           >
             <p className="break-words text-base leading-7 text-slate-700 sm:text-lg sm:leading-8 dark:text-[#b5c2d3]">
               {isEnglish
-                ? "I am a Bachelor of Informatics graduate from Universitas Teknokrat Indonesia with experience in website development using Next.js, Laravel, Vue.js, and Astro, as well as IT support and troubleshooting. I am able to build responsive digital solutions that meet user needs."
-                : "Saya merupakan lulusan S1 Informatika Universitas Teknokrat Indonesia dengan pengalaman dalam pengembangan website menggunakan Next.js, Laravel, Vue.js, dan Astro, serta IT Support dan troubleshooting. Saya mampu membangun solusi digital yang responsif dan sesuai dengan kebutuhan pengguna."}
-            </p>
-
-            <p className="mt-5 break-words text-base leading-7 text-slate-700 sm:mt-6 sm:text-lg sm:leading-8 dark:text-[#b5c2d3]">
-              {isEnglish
-                ? "In addition to my technical skills in information technology, I have skills in administration, data processing, and Microsoft Office. I am accustomed to preparing documentation and reports systematically, working collaboratively in teams, and supporting smooth operations. I value good communication, time management, attention to detail, adaptability, and responsibility in completing every task."
-                : "Selain kompetensi teknis di bidang teknologi informasi, saya memiliki keterampilan dalam administrasi, pengolahan data, dan penggunaan Microsoft Office. Saya terbiasa menyusun dokumentasi dan laporan secara sistematis, bekerja sama dalam tim, serta mendukung kelancaran operasional. Saya mengutamakan komunikasi yang baik, manajemen waktu, ketelitian, adaptabilitas, dan tanggung jawab dalam menyelesaikan setiap tugas."}
+                ? "Bachelor of Informatics graduate from Universitas Teknokrat Indonesia with experience in website development using Next.js, Laravel, CodeIgniter, Vue.js, and Astro, as well as technical support and IT troubleshooting. Skilled in administration, data processing, and Microsoft Office, and accustomed to preparing documentation and reports systematically to support smooth company operations. Committed to delivering digital solutions that meet business needs, with strong teamwork, attention to detail, responsibility, communication, and time management."
+                : "Lulusan S1 Informatika Universitas Teknokrat Indonesia dengan pengalaman dalam pengembangan website menggunakan Next.js, Laravel, CodeIgniter, Vue.js, dan Astro, serta dukungan teknis dan penyelesaian masalah TI. Memiliki kompetensi dalam administrasi, pengolahan data, dan Microsoft Office, serta terbiasa menyusun dokumentasi dan laporan secara sistematis untuk mendukung kelancaran operasional perusahaan. Berkomitmen memberikan solusi digital yang sesuai kebutuhan bisnis, dengan kemampuan kerja sama tim, ketelitian, tanggung jawab, serta komunikasi dan manajemen waktu yang baik."}
             </p>
           </motion.div>
 
@@ -92,7 +86,9 @@ export default function About() {
                   </p>
 
                   <p className="mt-1 break-words text-sm leading-relaxed text-slate-500 dark:text-[#94a3b8]">
-                    Universitas Teknokrat Indonesia
+                    {isEnglish
+                      ? "Indonesian Technocrat University"
+                      : "Universitas Teknokrat Indonesia"}
                   </p>
                 </div>
               </div>
